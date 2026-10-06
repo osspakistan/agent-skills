@@ -90,19 +90,32 @@ cp -r skills/skills/fewwords-summarizer ~/.claude/skills/
 
 ## Available Skills
 
-| Skill | Description | When to Reach For It | Quick Install |
-| :--- | :--- | :--- | :--- |
-| [**`fewwords-summarizer`**](skills/fewwords-summarizer/README.md) | High-signal briefs for articles, YouTube videos, and podcasts. | When you want key takeaways, a quick TL;DR, or an intent-driven briefing. | `npx skills add osspakistan/agent-skills --skill fewwords-summarizer` |
-| [**`human-pencil`**](skills/human-pencil/README.md) | Light-hand human prose editor and AI cliché remover. | When editing drafts to remove repetitive AI patterns and restore human voice. | `npx skills add osspakistan/agent-skills --skill human-pencil` |
-| [**`human-pencil-det`**](skills/human-pencil-det/README.md) | Duolingo English Test writing practice with contextual vocabulary bank. | When practicing writing for DET or elevating vocabulary naturally. | `npx skills add osspakistan/agent-skills --skill human-pencil-det` |
-| [**`musk-email-writer`**](skills/musk-email-writer/README.md) | Urgent, first-principles memos in the documented voice of Elon Musk. | When you need blunt, urgent, numbers-driven business memos or replies. | `npx skills add osspakistan/agent-skills --skill musk-email-writer` |
+### 1. [fewwords-summarizer](skills/fewwords-summarizer/README.md)
+High-signal, purpose-driven briefs for articles, YouTube videos, and podcasts.
+- **When to reach for it:** When you want key takeaways, a quick TL;DR, or an intent-driven briefing.
+- **Install:** `npx skills add osspakistan/agent-skills --skill fewwords-summarizer`
+
+### 2. [human-pencil](skills/human-pencil/README.md)
+Light-hand human prose editor and AI cliché remover.
+- **When to reach for it:** When editing drafts to remove repetitive AI patterns and restore authentic human voice.
+- **Install:** `npx skills add osspakistan/agent-skills --skill human-pencil`
+
+### 3. [human-pencil-det](skills/human-pencil-det/README.md)
+Duolingo English Test writing practice with a contextual vocabulary bank.
+- **When to reach for it:** When practicing writing for DET or elevating vocabulary naturally without robotic stuffing.
+- **Install:** `npx skills add osspakistan/agent-skills --skill human-pencil-det`
+
+### 4. [musk-email-writer](skills/musk-email-writer/README.md)
+Urgent, first-principles memos in the documented voice of Elon Musk.
+- **When to reach for it:** When you need blunt, urgent, numbers-driven business memos or replies.
+- **Install:** `npx skills add osspakistan/agent-skills --skill musk-email-writer`
 
 ---
 
 ## Repository Structure
 
 ```
-skills/
+agent-skills/
 ├── .gitignore                     # Ignores local experiment folders (.wtf/)
 ├── LICENSE                        # MIT License
 ├── README.md                      # Main directory & install guide
