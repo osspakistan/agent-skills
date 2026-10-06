@@ -13,3 +13,11 @@ Thumbs.db
 # Node / Packaging
 node_modules/
 dist/*.zip
+
+# agents
+.pi
+.claude
+.codex
+.agy
+.gemini
+.commandcode
