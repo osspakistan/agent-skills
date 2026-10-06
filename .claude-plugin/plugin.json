@@ -1,0 +1,25 @@
+{
+  "name": "skills",
+  "version": "1.0.0",
+  "description": "Open-source agent skills for writing, editing, summarization, and communications by OSS Pakistan.",
+  "author": {
+    "name": "OSS Pakistan",
+    "url": "https://github.com/osspakistan"
+  },
+  "homepage": "https://github.com/osspakistan/agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "claude-skills",
+    "fewwords-summarizer",
+    "human-pencil",
+    "human-pencil-det",
+    "musk-email-writer"
+  ],
+  "skills": [
+    "./skills/fewwords-summarizer",
+    "./skills/human-pencil",
+    "./skills/human-pencil-det",
+    "./skills/musk-email-writer"
+  ]
+}

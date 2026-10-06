@@ -1,0 +1,15 @@
+# Scratch and experimentation
+.wtf/
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Node / Packaging
+node_modules/
+dist/*.zip

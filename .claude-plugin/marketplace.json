@@ -1,0 +1,14 @@
+{
+  "name": "osspakistan-skills",
+  "owner": {
+    "name": "OSS Pakistan",
+    "url": "https://github.com/osspakistan"
+  },
+  "plugins": [
+    {
+      "name": "skills",
+      "source": "./",
+      "description": "Open-source agent skills for writing, editing, summarization, and communications by OSS Pakistan."
+    }
+  ]
+}

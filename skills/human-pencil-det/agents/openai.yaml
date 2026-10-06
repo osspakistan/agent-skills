@@ -1,0 +1,3 @@
+interface:
+  display_name: "Human Pencil DET"
+  short_description: "Write natural prose with DET vocabulary"
