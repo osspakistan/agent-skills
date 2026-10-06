@@ -17,6 +17,12 @@ Choose the installation method that fits your workflow:
 
 Works across all supported coding agents (Claude Code, Cursor, Windsurf, etc.).
 
+* **Interactive picker (manually choose skills from a list):**
+  ```bash
+  # Run without flags to interactively select which skills you want:
+  npx skills add osspakistan/agent-skills
+  ```
+
 * **Install ALL skills at once:**
   ```bash
   # Project-level
@@ -26,18 +32,13 @@ Works across all supported coding agents (Claude Code, Cursor, Windsurf, etc.).
   npx skills add osspakistan/agent-skills --all -g
   ```
 
-* **Install an INDIVIDUAL skill:**
+* **Install an INDIVIDUAL skill directly:**
   ```bash
   # Example: Install only fewwords-summarizer
   npx skills add osspakistan/agent-skills --skill fewwords-summarizer
 
   # Example: Install only human-pencil
   npx skills add osspakistan/agent-skills --skill human-pencil
-  ```
-
-* **Interactive picker (select which skills you want):**
-  ```bash
-  npx skills add osspakistan/agent-skills
   ```
 
 * **List available skills before installing:**
