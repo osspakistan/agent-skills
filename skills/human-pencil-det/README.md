@@ -2,7 +2,7 @@
 
 > Natural English prose with a rich, contextual vocabulary bank for Duolingo English Test (DET) practice.
 
-`human-pencil-det` merges the light-touch human editing of `human-pencil` with a curated DET vocabulary bank. It helps learners and test-takers express sophisticated ideas naturally without falling into the trap of forced or robotic vocabulary stuffing.
+`human-pencil-det` merges the light-touch human editing of `human-pencil` with a DET vocabulary bank. It helps learners and test-takers express sophisticated ideas naturally without falling into the trap of forced or robotic vocabulary stuffing.
 
 ---
 
