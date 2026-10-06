@@ -1,85 +1,60 @@
 # OSS Pakistan Agent Skills
 
-A curated collection of open-source agent skills for writing, editing, summarization, and communications. Works seamlessly with Claude Code, Cursor, Codex, Windsurf, Antigravity, and other tools supporting the Agent Skills specification.
+A collection of open-source agent skills for writing, editing, summarization, and business communications. Works seamlessly with Claude Code, Cursor, Codex, Windsurf, Antigravity, and any environment supporting the [Agent Skills specification](https://skills.sh).
 
-## Build & Test
+---
 
-• Install skill: `npx skills add osspakistan/agent-skills --skill <skill-name>`
-• Install all skills: `npx skills add osspakistan/agent-skills --all`
-• Interactive skill selection: `npx skills add osspakistan/agent-skills`
-• List available skills: `npx skills add osspakistan/agent-skills --list`
-• List Claude Code plugins: `~plugin list`
-• Install Claude plugin: `~plugin install skills@skills`
-• Clone and copy skills: `cp -r skills/skills/* ~/.claude/skills/`
+## Quick Commands & Verification
 
-## Project Layout
+- **Interactive skill selection:** `npx skills add osspakistan/agent-skills` (or `bunx` / `pnpx`)
+- **Install all skills:** `npx skills add osspakistan/agent-skills --all`
+- **Install individual skill:** `npx skills add osspakistan/agent-skills --skill <skill-name>`
+- **Validate repository skills:** `npx skills add . --list`
+- **Claude Code plugin marketplace:**
+  - Add marketplace: `/plugin marketplace add osspakistan/agent-skills`
+  - Install plugin: `/plugin install skills@skills`
 
-├─ **skills/** → Contains all agent skills for Claude
-│  ├─ **fewwords-summarizer/** → Content summarization and briefing skill
-│  ├─ **human-pencil/** → Human prose editor and AI cliché remover
-│  ├─ **human-pencil-det/** → DET English Test writing practice
-│  └─ **musk-email-writer/** → Urgent, first-principles memos in Musk's voice
-├─ **.claude-plugin/** → Claude Code marketplace integration
-│  ├─ **plugin.json** → Agent skill definitions
-│  └─ **marketplace.json** → Marketplace metadata
-└─ **README.md** → Installation guide and skill documentation
+---
 
-## Architecture Overview
+## Project Structure
 
-A monorepo housing specialized agent skills for AI-assisted writing and communication. Each skill follows the Agent Skills specification with a unified structure: a SKILL.md file containing the agent's instructions, a README.md for human documentation, and a references/ directory with supporting files (classifier, prompts, patterns). The repository provides a centralized distribution point for skills that work across multiple AI coding agents (Claude Code, Cursor, Codex, Windsurf, etc.) through the skills.sh CLI and Claude Code plugin marketplace.
+```
+agent-skills/
+├── .github/workflows/
+│   └── release.yml            # CI workflow for auto-packaging releases
+├── .claude-plugin/
+│   ├── marketplace.json       # Claude Code marketplace configuration
+│   └── plugin.json            # Plugin manifest listing available skills
+├── skills/                    # Production skills directory
+│   ├── fewwords-summarizer/   # Content summarization and briefing
+│   ├── human-pencil/          # Natural prose editor & AI cliché remover
+│   ├── human-pencil-det/      # DET writing practice & vocabulary bank
+│   └── musk-email-writer/     # Urgent, first-principles executive memos
+├── LICENSE                    # MIT License
+├── README.md                  # Human-facing documentation & install guides
+└── AGENTS.md                  # Agent operating instructions & repository rules
+```
 
-Key architectural decisions:
-- Each skill is independently installable and maintainable
-- Skills follow a consistent pattern for easy onboarding
-- Repository serves as both source and distribution channel
-- Plugin integration provides seamless AI agent access
+---
 
-## Development Patterns & Constraints
+## Skill Architecture
 
-### Coding Style
-• **Language**: JavaScript/TypeScript (skill metadata, classifier logic)
-• **Formatting**: YAML frontmatter in SKILL.md, Markdown in documentation
-• **Naming**: snake_case for skill names, kebab-case for directory names
-• **Imports**: YAML frontmatter for skill metadata, Markdown for documentation
-• **Exports**: JSON via marketplace.json, file system for skill distribution
+Every skill follows the standard Agent Skills specification:
 
-### Component Patterns
-• **Skill Structure**: SKILL.md (agent instructions) + README.md (human docs) + references/
-• **File Organization**: Colocated skill definitions with supporting documentation
-• **Type definitions**: YAML frontmatter in SKILL.md for skill metadata
-• **Styling approach**: Markdown for documentation, YAML for configuration
-• **Import patterns**: Agent Skills spec uses absolute paths (skill-name, SKILL.md)
+1. **`SKILL.md` (Agent Instructions):**
+   - Must begin with valid YAML frontmatter containing `name` and `description`.
+   - The `description` is critical: AI agents use it for intent detection and automatic activation.
+   - Body contains actionable workflows, voice principles, and execution steps.
+2. **`README.md` (Human Documentation):**
+   - Rendered on GitHub when browsing the skill folder.
+   - Contains: what the skill does, quick install commands, example prompts, and license.
+3. **`references/` (Optional Context & Modules):**
+   - Supplementary markdown files (e.g. classification trees, prompt templates, word banks).
+   - Referenced by relative links from `SKILL.md`.
 
-### Error Handling
-• **Flow control**: Skill instructions using Claude's function_call format
-• **Fallback patterns**: Multiple fetch strategies in references/fetching.md
-• **Content validation**: Classifier-based content type matching
-• **Import errors**: File system path checks for skill components
-
-### Async Patterns
-• **Content acquisition**: Terminal commands (curl, fetch) for web content
-• **Classifier matching**: Sequential content type identification
-• **Prompt application**: Single prompt selection based on classification
-
-### Testing Patterns
-• **Manual verification**: Human documentation review and examples
-• **Integration testing**: Skills tested across multiple AI agents (Claude, Cursor, etc.)
-• **Quality checking**: Pattern-based reviews for AI cliché detection
-
-## Security
-
-• **Access control**: Skills distributed through authenticated package managers
-• **Content filtering**: Classifier prevents inappropriate content processing
-• **Input validation**: URL validation and fetch error handling
-• **Source verification**: Skills verified through GitHub releases
-• **Plugin permissions**: Claude plugin operates with user consent
+---
 
 ## Git Workflows & Release Management
-
-• **Branching strategy**: Standard `main` workflow with feature branches.
-• **Commit conventions**: Conventional Commits (e.g., `feat:`, `fix:`, `docs:`, `chore(release):`).
-• **PR requirements**: Pull requests for new skills, reference updates, or fixes.
-• **Protected branches**: `main` branch holds production release state.
 
 ### When to use `git push` vs `git tag`
 
@@ -87,7 +62,7 @@ Key architectural decisions:
 | :--- | :--- | :--- | :--- | :--- |
 | **Initial Upstream Link** | `git push -u origin main` | Sets upstream tracking for branch | Run once on repository creation or when pushing a newly created branch. | **No** |
 | **Routine Code Sync** | `git push origin main` | Pushes daily commits and work | Use constantly during routine skill writing, testing, editing prompts, and docs. | **No** |
-| **Official Version Release** | `git tag v1.x.x`<br>`git push origin --tags` | Creates immutable version checkpoint | Only when ready to cut and publish an official release (`v1.0.1`, `v1.1.0`, etc.). | **Yes** (Builds ZIPs & publishes GitHub Release) |
+| **Official Version Release** | `git tag v1.x.x`<br>`git push origin --tags` | Creates immutable version checkpoint | Only when ready to publish an official release (`v1.0.1`, `v1.1.0`, etc.). | **Yes** (Builds ZIPs & publishes GitHub Release) |
 
 ### Semantic Versioning Guide (`MAJOR.MINOR.PATCH`)
 
@@ -95,57 +70,42 @@ Current version: **`1.0.0`**. All future versions follow `1.x.x` progression:
 
 | Digit | Scope | When to Increment | Examples |
 | :--- | :--- | :--- | :--- |
-| **MAJOR (`X.0.0`)** | Breaking changes | Architecture revamps, removing/deprecating skills, breaking prompt changes that change expected output interfaces. | `2.0.0` |
+| **MAJOR (`X.0.0`)** | Breaking changes | Architecture revamps, removing/deprecating skills, breaking output interfaces. | `2.0.0` |
 | **MINOR (`1.X.0`)** | New features | Adding a brand new skill (e.g. `skills/brand-writer`), adding new reference classifiers or prompt templates (fully backward-compatible). | `1.1.0`, `1.2.0` |
 | **PATCH (`1.0.X`)** | Bug fixes & refinements | Prompt wording refinements in `SKILL.md`, correcting typos, updating examples in `references/`, docs fixes. | `1.0.1`, `1.0.2` |
 
 ### GitHub Actions Release & Deployment Pipeline
 
-The repository uses [`.github/workflows/release.yml`](.github/workflows/release.yml) to automate packaging and production release deployment.
-
-• **Workflow Trigger**: 
-  - Git tag push matching `v*` (e.g. `v1.0.1`, `v1.1.0`, `v2.0.0`).
-  - Manual trigger via GitHub Actions UI (`workflow_dispatch`).
-• **Automated Pipeline Steps**:
-  1. Checkouts codebase via `actions/checkout@v4`.
-  2. Iterates over `skills/*` and packages each folder into individual `.zip` archives inside `dist/` with directory preservation for Claude.ai compatibility.
-  3. Packages `all-skills.zip` containing the full skill set.
-  4. Creates GitHub Release via `softprops/action-gh-release@v2`, generates changelogs, and uploads all zip assets.
+Automated by [`.github/workflows/release.yml`](.github/workflows/release.yml):
+1. **Trigger:** Push of any git tag matching `v*` (e.g. `v1.0.1`, `v1.1.0`), or manual workflow dispatch.
+2. **Build:** Packages each skill folder into individual `.zip` files (with the root folder preserved for Claude.ai), plus `all-skills.zip`.
+3. **Publish:** Creates GitHub Release, generates changelogs, and uploads the downloadable ZIP assets.
 
 ### Agent Release Checklist (When publishing a version)
 
 1. Bump `"version"` in `.claude-plugin/plugin.json` (e.g. `"1.1.0"`).
-2. Verify all references and `SKILL.md` files pass `npx skills add . --list`.
+2. Validate local skills: `npx skills add . --list`.
 3. Commit changes: `git commit -am "chore(release): bump version to 1.1.0"`
 4. Tag and push: `git tag v1.1.0 && git push origin main --tags`
-5. Verify GitHub Action run: `gh run list --repo osspakistan/agent-skills`
+5. Verify GitHub Action status: `gh run list --repo osspakistan/agent-skills`
 
-## Evidence Required for Every PR
+---
 
-A pull request is reviewable when it includes:
+## PR Review & Contribution Checklist
 
-• All skill files complete: SKILL.md, README.md, references/
-• Skill metadata valid in plugin.json: name, description, version
-• YAML frontmatter properly formatted in SKILL.md
-• Example outputs or documentation demonstrating skill behavior
-• No broken links or missing references in skills/
-• Skill installation instructions in README.md updated
-• No unexplained dependencies in references/
+A pull request is ready to merge when:
+- [ ] Every new skill has its own folder under `skills/<skill-name>/`.
+- [ ] `SKILL.md` exists with valid YAML frontmatter (`name` matching the folder name exactly).
+- [ ] A human-friendly `README.md` is provided in the skill folder.
+- [ ] All relative links to `references/` are valid and tested.
+- [ ] Skill is added to `.claude-plugin/plugin.json` and the root `README.md` list.
+- [ ] `npx skills add . --list` discovers the skill without errors.
 
-## External Services
-
-• **GitHub**: Skill distribution, releases, marketplace
-• **Agent Skills spec**: Skill specification and installation via skills.sh
-• **Claude Code**: Plugin marketplace integration
-• **npm registries**: Skill installation via package managers
+---
 
 ## Gotchas & Common Pitfalls
 
-• Skills are case-sensitive: Install exact skill name (e.g., "fewwords-summarizer" not "Fewwords-summarizer")
-• References must be complete: Missing classifier or fetch files breaks skill operation
-• Plugin installation requires proper permissions: Ensure ~/.claude directory exists
-• ZIP packaging preserves directory structure: All zip files maintain skills/* structure
-• Skill metadata must be YAML-valid: Invalid frontmatter breaks agent integration
-• Template accuracy matters: CLIs like skills.sh expect specific skill.json structure
-• Plugin naming conflicts: Multiple plugins with same name can cause installation issues
-• Fetch order is critical: skills.sh classifier requires sequential curl attempts
+- **Directory name matches frontmatter:** `skills/<name>` directory name must be identical to the `name:` field in `SKILL.md`.
+- **Do not commit `dist/`:** ZIP archives are generated on the fly by CI and should remain gitignored.
+- **Root folder in ZIPs:** Claude.ai requires the ZIP file to contain `<skill-name>/SKILL.md` (not `SKILL.md` at zip root).
+- **No external code runtime needed:** Skills are declarative prompt and reference files—do not add npm build scripts or compiler steps unless an explicit helper CLI script is needed.
