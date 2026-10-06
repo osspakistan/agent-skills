@@ -81,6 +81,14 @@ Key architectural decisions:
 • **PR requirements**: Pull requests for new skills, reference updates, or fixes.
 • **Protected branches**: `main` branch holds production release state.
 
+### When to use `git push` vs `git tag`
+
+| Action | Command | Purpose | When to Use | Triggers CI Release? |
+| :--- | :--- | :--- | :--- | :--- |
+| **Initial Upstream Link** | `git push -u origin main` | Sets upstream tracking for branch | Run once on repository creation or when pushing a newly created branch. | **No** |
+| **Routine Code Sync** | `git push origin main` | Pushes daily commits and work | Use constantly during routine skill writing, testing, editing prompts, and docs. | **No** |
+| **Official Version Release** | `git tag v1.x.x`<br>`git push origin --tags` | Creates immutable version checkpoint | Only when ready to cut and publish an official release (`v1.0.1`, `v1.1.0`, etc.). | **Yes** (Builds ZIPs & publishes GitHub Release) |
+
 ### Semantic Versioning Guide (`MAJOR.MINOR.PATCH`)
 
 Current version: **`1.0.0`**. All future versions follow `1.x.x` progression:

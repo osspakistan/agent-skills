@@ -157,6 +157,17 @@ The current release is **`v1.0.0`**. Version progression follows `1.x.x`:
 | **MINOR** | `1.X.0` | New features (backwards-compatible) | Adding a brand new skill (e.g. `skills/brand-writer`), adding new reference modules, adding major templates. | `1.1.0`, `1.2.0` |
 | **PATCH** | `1.0.X` | Bug fixes & refinements | Fixing typos, refining prompts in `SKILL.md`, updating references or examples, doc improvements. | `1.0.1`, `1.0.2` |
 
+### When to use `git push` vs `git tag`
+
+| Command | Purpose | When to Use | Triggers GitHub Release? |
+| :--- | :--- | :--- | :--- |
+| **`git push origin main`** | Code Sync | Daily development, pushing drafts, updates, or fixes to the `main` branch. | **No** (only updates the git tree). |
+| **`git tag v1.x.x`**<br>`git push origin --tags` | Production Release | Only when bumping versions (e.g. `v1.0.1`, `v1.1.0`) to publish an official release. | **Yes** (triggers CI build & ZIP publishing). |
+
+- **First-time setup only:** Use `git push -u origin main` once to link your local branch to the remote upstream tracking branch.
+- **Regular daily development:** Just use `git commit` followed by `git push`.
+- **Ready to ship a new version:** Create an annotated or lightweight tag with `git tag v1.x.x` and push it with `git push origin --tags`.
+
 ### Automated GitHub Actions Release Pipeline
 
 Releases and Claude.ai ZIP packages are automatically generated and deployed using GitHub Actions ([`.github/workflows/release.yml`](.github/workflows/release.yml)).
