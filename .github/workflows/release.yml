@@ -1,0 +1,43 @@
+name: Release Skills
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Package skills into ZIP archives
+        run: |
+          mkdir -p dist
+          
+          # Zip each individual skill folder
+          for skill_dir in skills/*; do
+            if [ -d "$skill_dir" ]; then
+              skill_name=$(basename "$skill_dir")
+              echo "Packaging $skill_name..."
+              # Zip the folder so the root of the zip contains the skill folder name
+              (cd skills && zip -r "../dist/${skill_name}.zip" "$skill_name" -x "*.DS_Store*")
+            fi
+          done
+
+          # Create an all-in-one zip containing all skills
+          echo "Packaging all-skills.zip..."
+          (cd skills && zip -r "../dist/all-skills.zip" . -x "*.DS_Store*")
+
+      - name: Create GitHub Release and Upload Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
