@@ -74,13 +74,43 @@ Key architectural decisions:
 • **Source verification**: Skills verified through GitHub releases
 • **Plugin permissions**: Claude plugin operates with user consent
 
-## Git Workflows
+## Git Workflows & Release Management
 
-• **Branching strategy**: Standard main workflow with feature branches
-• **Commit conventions**: Conventional Commits for release tags
-• **PR requirements**: Pull requests for new skills or improvements
-• **Protected branches**: Main branch requires code review
-• **Release process**: Automated ZIP packaging via GitHub Actions
+• **Branching strategy**: Standard `main` workflow with feature branches.
+• **Commit conventions**: Conventional Commits (e.g., `feat:`, `fix:`, `docs:`, `chore(release):`).
+• **PR requirements**: Pull requests for new skills, reference updates, or fixes.
+• **Protected branches**: `main` branch holds production release state.
+
+### Semantic Versioning Guide (`MAJOR.MINOR.PATCH`)
+
+Current version: **`1.0.0`**. All future versions follow `1.x.x` progression:
+
+| Digit | Scope | When to Increment | Examples |
+| :--- | :--- | :--- | :--- |
+| **MAJOR (`X.0.0`)** | Breaking changes | Architecture revamps, removing/deprecating skills, breaking prompt changes that change expected output interfaces. | `2.0.0` |
+| **MINOR (`1.X.0`)** | New features | Adding a brand new skill (e.g. `skills/brand-writer`), adding new reference classifiers or prompt templates (fully backward-compatible). | `1.1.0`, `1.2.0` |
+| **PATCH (`1.0.X`)** | Bug fixes & refinements | Prompt wording refinements in `SKILL.md`, correcting typos, updating examples in `references/`, docs fixes. | `1.0.1`, `1.0.2` |
+
+### GitHub Actions Release & Deployment Pipeline
+
+The repository uses [`.github/workflows/release.yml`](.github/workflows/release.yml) to automate packaging and production release deployment.
+
+• **Workflow Trigger**: 
+  - Git tag push matching `v*` (e.g. `v1.0.1`, `v1.1.0`, `v2.0.0`).
+  - Manual trigger via GitHub Actions UI (`workflow_dispatch`).
+• **Automated Pipeline Steps**:
+  1. Checkouts codebase via `actions/checkout@v4`.
+  2. Iterates over `skills/*` and packages each folder into individual `.zip` archives inside `dist/` with directory preservation for Claude.ai compatibility.
+  3. Packages `all-skills.zip` containing the full skill set.
+  4. Creates GitHub Release via `softprops/action-gh-release@v2`, generates changelogs, and uploads all zip assets.
+
+### Agent Release Checklist (When publishing a version)
+
+1. Bump `"version"` in `.claude-plugin/plugin.json` (e.g. `"1.1.0"`).
+2. Verify all references and `SKILL.md` files pass `npx skills add . --list`.
+3. Commit changes: `git commit -am "chore(release): bump version to 1.1.0"`
+4. Tag and push: `git tag v1.1.0 && git push origin main --tags`
+5. Verify GitHub Action run: `gh run list --repo osspakistan/agent-skills`
 
 ## Evidence Required for Every PR
 

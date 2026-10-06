@@ -145,6 +145,38 @@ agent-skills/
         └── references/
 ```
 
+## Release & Version Management
+
+This repository uses **Semantic Versioning** (`MAJOR.MINOR.PATCH`).
+
+The current release is **`v1.0.0`**. Version progression follows `1.x.x`:
+
+| Segment | Format | Meaning | When to Use | Examples |
+| :--- | :--- | :--- | :--- | :--- |
+| **MAJOR** | `X.0.0` | Breaking changes | Incompatible skill workflow changes, removing or deprecating existing skills, major breaking renames. | `2.0.0` |
+| **MINOR** | `1.X.0` | New features (backwards-compatible) | Adding a brand new skill (e.g. `skills/brand-writer`), adding new reference modules, adding major templates. | `1.1.0`, `1.2.0` |
+| **PATCH** | `1.0.X` | Bug fixes & refinements | Fixing typos, refining prompts in `SKILL.md`, updating references or examples, doc improvements. | `1.0.1`, `1.0.2` |
+
+### Automated GitHub Actions Release Pipeline
+
+Releases and Claude.ai ZIP packages are automatically generated and deployed using GitHub Actions ([`.github/workflows/release.yml`](.github/workflows/release.yml)).
+
+**How to publish a new release:**
+
+1. **Update version in manifests:**
+   - Bump `"version"` in `.claude-plugin/plugin.json` (e.g. `"1.1.0"`).
+2. **Commit and tag:**
+   ```bash
+   git commit -am "chore(release): bump version to 1.1.0"
+   git tag v1.1.0
+   git push origin main --tags
+   ```
+3. **Automated Deployment:**
+   - GitHub Actions automatically triggers on `v*` tags.
+   - Packages every skill into an individual `.zip` with the correct root directory layout for Claude.ai.
+   - Builds an `all-skills.zip` archive containing the entire collection.
+   - Publishes a new GitHub Release with auto-generated release notes and downloadable assets.
+
 ---
 
 ## Contributing
@@ -155,7 +187,7 @@ We welcome new skills and improvements from the community!
 2. Add your skill into `skills/<your-skill-name>/`:
    - Include a valid [`SKILL.md`](https://skills.sh) with `name` and `description` YAML frontmatter.
    - Include a clear [`README.md`](skills/fewwords-summarizer/README.md) explaining the skill for humans.
-3. Add the skill to `.claude-plugin/plugin.json` and the root table.
+3. Add the skill to `.claude-plugin/plugin.json` and the root list.
 4. Submit a Pull Request.
 
 ---
