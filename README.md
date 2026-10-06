@@ -15,12 +15,16 @@ Choose the installation method that fits your workflow:
 
 ### 1. Using `skills.sh` CLI (Recommended)
 
-Works across all supported coding agents (Claude Code, Cursor, Windsurf, etc.).
+Works with `npx`, `bunx`, or `pnpx` across all supported coding agents (Claude Code, Cursor, Windsurf, Antigravity, etc.).
 
 * **Interactive picker (manually choose skills from a list):**
   ```bash
   # Run without flags to interactively select which skills you want:
   npx skills add osspakistan/agent-skills
+
+  # Or using bunx / pnpx:
+  bunx skills add osspakistan/agent-skills
+  pnpx skills add osspakistan/agent-skills
   ```
 
 * **Install ALL skills at once:**
