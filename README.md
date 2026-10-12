@@ -114,6 +114,11 @@ Urgent, first-principles memos in the documented voice of Elon Musk.
 - **When to reach for it:** When you need blunt, urgent, numbers-driven business memos or replies.
 - **Install:** `npx skills add osspakistan/agent-skills --skill musk-email-writer`
 
+### 5. [cold-email-writer](skills/cold-email-writer/README.md)
+High-converting cold outreach emails and DMs for sales, fundraising, and partnerships.
+- **When to reach for it:** When writing investor pitches, sales prospecting emails, or follow-ups that get replies.
+- **Install:** `npx skills add osspakistan/agent-skills --skill cold-email-writer`
+
 ---
 
 ## Repository Structure
@@ -139,7 +144,11 @@ agent-skills/
     │   ├── SKILL.md
     │   ├── README.md
     │   └── references/
-    └── musk-email-writer/
+    ├── musk-email-writer/
+    │   ├── SKILL.md
+    │   ├── README.md
+    │   └── references/
+    └── cold-email-writer/
         ├── SKILL.md
         ├── README.md
         └── references/
@@ -149,7 +158,7 @@ agent-skills/
 
 This repository uses **Semantic Versioning** (`MAJOR.MINOR.PATCH`).
 
-The current release is **`v1.0.0`**. Version progression follows `1.x.x`:
+The current release is **`v1.1.0`**. Version progression follows `1.x.x`:
 
 | Segment | Format | Meaning | When to Use | Examples |
 | :--- | :--- | :--- | :--- | :--- |

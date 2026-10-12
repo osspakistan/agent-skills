@@ -1,6 +1,6 @@
 {
   "name": "skills",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Open-source agent skills for writing, editing, summarization, and communications by OSS Pakistan.",
   "author": {
     "name": "OSS Pakistan",
@@ -14,12 +14,14 @@
     "fewwords-summarizer",
     "human-pencil",
     "human-pencil-det",
-    "musk-email-writer"
+    "musk-email-writer",
+    "cold-email-writer"
   ],
   "skills": [
     "./skills/fewwords-summarizer",
     "./skills/human-pencil",
     "./skills/human-pencil-det",
-    "./skills/musk-email-writer"
+    "./skills/musk-email-writer",
+    "./skills/cold-email-writer"
   ]
 }
