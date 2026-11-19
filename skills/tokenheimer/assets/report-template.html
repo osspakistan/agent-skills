@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Project Grind Report</title>
+<style>
+  :root {
+    --brand: #1B365D;
+    --brand-light: #2D5A8A;
+    --parchment: #f5f4ed;
+    --ivory: #faf9f5;
+    --inline-code: #f0eee6;
+    --warm-sand: #e8e6dc;
+    --deep-dark: #141413;
+    --dark-surface: #30302e;
+    --near-black: #141413;
+    --dark-warm: #3d3d3a;
+    --olive: #504e49;
+    --stone: #6b6a64;
+    --border: #e8e6dc;
+    --border-soft: #e5e3d8;
+
+    --serif: Charter, Georgia, Palatino, "Times New Roman", serif;
+    --ui: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", "SF Mono", "Fira Code", Consolas, Monaco, monospace;
+
+    --bg: var(--parchment);
+    --surface: var(--ivory);
+    --surface-2: var(--inline-code);
+    --text: var(--near-black);
+    --text-2: var(--dark-warm);
+    --text-3: var(--stone);
+    --line: var(--border);
+    --line-2: var(--border-soft);
+    --accent: var(--brand);
+    --accent-link: var(--brand);
+    --button-text: #faf9f5;
+    --shadow: 0 10px 30px rgba(20,20,19,.07);
+    --radius: 8px;
+    --max: 1120px;
+  }
+
+  html[data-theme="dark"] {
+    --bg: var(--deep-dark);
+    --surface: #1d1d1b;
+    --surface-2: #242421;
+    --text: #f3f1e9;
+    --text-2: #d0cdc2;
+    --text-3: #9c998f;
+    --line: #35342f;
+    --line-2: #2b2a27;
+    --accent: #7d98b5;
+    --accent-link: #9bb5cf;
+    --button-text: #141413;
+    --shadow: 0 10px 30px rgba(0,0,0,.18);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html[data-theme="auto"] {
+      --bg: var(--deep-dark);
+      --surface: #1d1d1b;
+      --surface-2: #242421;
+      --text: #f3f1e9;
+      --text-2: #d0cdc2;
+      --text-3: #9c998f;
+      --line: #35342f;
+      --line-2: #2b2a27;
+      --accent: #7d98b5;
+      --accent-link: #9bb5cf;
+      --button-text: #141413;
+      --shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    font-weight: 400;
+    line-height: 1.55;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-link); }
+  button, input, select { font: inherit; }
+  button { color: inherit; }
+
+  .shell { max-width: var(--max); margin: 0 auto; padding: 0 64px 96px; }
+  .utility {
+    position: sticky; top: 0; z-index: 20;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    backdrop-filter: blur(16px);
+  }
+  .utility-inner {
+    max-width: var(--max); margin: 0 auto; padding: 12px 64px;
+    display: flex; align-items: center; gap: 16px; justify-content: space-between;
+  }
+  .brandline { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+  .brandline strong { font-weight: 500; white-space: nowrap; }
+  .brandline span { color: var(--text-3); font: 500 11px/1 var(--ui); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+  .utility-actions { display:flex; align-items:center; gap:8px; }
+  .ui-btn, .ui-select {
+    appearance: none; border: 1px solid var(--line); background: var(--surface);
+    color: var(--text-2); border-radius: 999px; padding: 8px 12px;
+    font: 500 12px/1 var(--ui); cursor: pointer;
+  }
+  .ui-btn:hover, .ui-select:hover { border-color: var(--text-3); }
+  .ui-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--button-text); }
+
+  header.hero { padding: 88px 0 54px; }
+  .eyebrow {
+    margin: 0 0 16px; color: var(--accent);
+    font: 600 11px/1.25 var(--ui); letter-spacing: .12em; text-transform: uppercase;
+  }
+  h1, h2, h3 { font-weight: 500; letter-spacing: -0.018em; margin: 0; }
+  h1 { font-size: clamp(42px, 6vw, 78px); line-height: 1.04; max-width: 820px; }
+  .hero-meta { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--text-2); font-size: 15px; }
+  .hero-note { margin: 24px 0 0; max-width: 720px; color: var(--text-2); font-size: 17px; line-height: 1.55; }
+
+  .metric-row {
+    display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 28px;
+    padding: 34px 0 42px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .metric { display:flex; flex-direction:column; gap:7px; min-width:0; }
+  .metric-value { color: var(--accent); font-size: clamp(28px, 4vw, 44px); line-height: 1; letter-spacing: -.025em; }
+  .metric-label { color: var(--text-2); font: 500 11px/1.3 var(--ui); letter-spacing: .05em; text-transform: uppercase; }
+  .metric-note { color: var(--text-3); font-size: 12px; line-height: 1.4; }
+
+  section { padding: 62px 0 6px; }
+  .section-head { display:grid; grid-template-columns: 160px minmax(0, 1fr); gap: 32px; align-items:start; margin-bottom: 28px; }
+  .section-num { margin: 5px 0 0; color: var(--text-3); font: 600 11px/1.3 var(--ui); letter-spacing:.08em; text-transform:uppercase; }
+  h2 { font-size: clamp(28px, 4vw, 46px); line-height: 1.12; }
+  .section-lede { margin: 12px 0 0; max-width: 700px; color: var(--text-2); font-size: 16px; }
+
+  .split { display:grid; grid-template-columns: minmax(0, 1.35fr) minmax(250px,.65fr); gap: 34px; align-items:start; }
+  .callout { background: var(--surface); border-radius: var(--radius); padding: 22px 24px; }
+  .callout h3 { font-size: 20px; line-height:1.25; }
+  .callout p { margin: 8px 0 0; color: var(--text-2); }
+
+  .stat-list { margin:0; padding:0; list-style:none; }
+  .stat-list li { display:flex; justify-content:space-between; gap:24px; padding: 11px 0; border-bottom: 1px solid var(--line-2); }
+  .stat-list li:last-child { border-bottom:0; }
+  .stat-list .k { color: var(--text-2); }
+  .stat-list .v { text-align:right; font-variant-numeric: tabular-nums; }
+  .stat-list small { display:block; color:var(--text-3); font:500 10px/1.3 var(--ui); margin-top:2px; }
+
+  .chart-wrap { min-height: 250px; padding: 18px 0 4px; }
+  .chart-title { margin:0 0 14px; color:var(--text-2); font-size:14px; }
+  .bars { display:grid; gap:10px; }
+  .bar-row { display:grid; grid-template-columns: 92px minmax(0,1fr) 64px; gap:12px; align-items:center; }
+  .bar-label { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; color:var(--text-2); font-size:13px; }
+  .bar-track { height: 9px; background: var(--surface-2); border-radius:999px; overflow:hidden; }
+  .bar-fill { height:100%; background:var(--accent); border-radius:999px; min-width:2px; }
+  .bar-value { text-align:right; font-variant-numeric:tabular-nums; font-size:13px; color:var(--text-2); }
+  .spark { width:100%; height:210px; display:block; overflow:visible; }
+  .spark .axis { stroke:var(--line); stroke-width:1; }
+  .spark .path { fill:none; stroke:var(--accent); stroke-width:2; vector-effect:non-scaling-stroke; }
+  .spark .dot { fill:var(--bg); stroke:var(--accent); stroke-width:2; }
+  .spark text { fill:var(--text-3); font: 10px var(--ui); }
+
+  .table-wrap { overflow:auto; border-top:1px solid var(--line); }
+  table { width:100%; border-collapse:collapse; min-width:720px; }
+  th, td { padding: 14px 12px; border-bottom:1px solid var(--line-2); text-align:left; vertical-align:top; }
+  th { color:var(--text-3); font:600 10px/1.3 var(--ui); letter-spacing:.06em; text-transform:uppercase; }
+  td { font-size:14px; }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .name-cell { font-weight:500; }
+  .sub { display:block; color:var(--text-3); font-size:11px; margin-top:2px; }
+
+  .provenance { display:inline-flex; align-items:center; gap:5px; padding:3px 7px; border-radius:999px; background:var(--surface-2); color:var(--text-3); font:600 9px/1 var(--ui); text-transform:uppercase; letter-spacing:.04em; }
+  .provenance::before { content:""; width:5px; height:5px; border-radius:50%; background:currentColor; }
+  .provenance.recorded { color:var(--accent); }
+  .provenance.derived { color:var(--text-2); }
+  .provenance.inferred { color:var(--stone); }
+
+  .session-tools { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+  .search { flex:1 1 260px; border:1px solid var(--line); background:var(--surface); color:var(--text); border-radius:999px; padding:10px 14px; font:400 13px/1 var(--ui); outline:none; }
+  .search:focus { border-color:var(--accent); }
+  .session-day { margin-top:34px; }
+  .session-day-head { display:flex; align-items:baseline; justify-content:space-between; gap:20px; padding-bottom:10px; border-bottom:1px solid var(--line); }
+  .session-day-head h3 { font-size:22px; }
+  .session-day-head span { color:var(--text-3); font:500 11px/1.3 var(--ui); }
+  .session { display:grid; grid-template-columns: 130px minmax(0,1fr); gap:24px; padding:24px 0; border-bottom:1px solid var(--line-2); }
+  .session-time { color:var(--text-3); font:500 12px/1.5 var(--ui); }
+  .session-time span { display:block; overflow-wrap:anywhere; }
+  .session-main { min-width:0; }
+  .session-main h4 { margin:0; font-weight:500; font-size:17px; line-height:1.25; }
+  .session-main p { margin:7px 0 0; color:var(--text-2); font-size:14px; max-width:760px; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .chip { background:var(--surface-2); color:var(--text-3); border-radius:999px; padding:5px 8px; font:600 10px/1 var(--ui); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .session-metrics { margin-top:16px; padding-top:14px; border-top:1px solid var(--line-2); display:grid; grid-template-columns:repeat(auto-fit,minmax(104px,1fr)); gap:14px 20px; color:var(--text-2); font:500 11px/1.35 var(--ui); font-variant-numeric:tabular-nums; }
+  .session-metric { min-width:0; }
+  .session-metric strong { display:block; color:var(--text); font:500 16px/1.2 var(--serif); white-space:nowrap; margin-bottom:3px; }
+  .usage-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:34px; margin-top:30px; }
+
+  .evidence-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+  .evidence { padding:18px 0; border-top:1px solid var(--line); }
+  .evidence .value { font-size:28px; color:var(--accent); }
+  .evidence .label { color:var(--text-2); font-size:13px; margin-top:4px; }
+  .evidence .detail { color:var(--text-3); font-size:11px; margin-top:6px; }
+
+  .downloads { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+  .download-link { text-decoration:none; display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:999px; padding:9px 13px; color:var(--text-2); font:600 12px/1 var(--ui); background:var(--surface); }
+  .download-link:hover { border-color:var(--text-3); }
+
+  footer { padding:72px 0 0; margin-top:50px; border-top:1px solid var(--line); color:var(--text-3); font-size:12px; }
+  footer strong { color:var(--text-2); font-weight:500; }
+  .hide { display:none !important; }
+  .empty { color:var(--text-3); padding:24px 0; font-size:14px; }
+
+  @media print {
+    .utility, .downloads, .session-tools { display:none !important; }
+    body { background:#fff; color:#141413; }
+    .shell { max-width:none; padding:0 12mm 16mm; }
+    header.hero { padding-top:18mm; }
+    section { break-inside:avoid; }
+    .session-day { break-inside:avoid; }
+  }
+
+  @media (max-width: 880px) {
+    .shell { padding:0 28px 72px; }
+    .utility-inner { padding:10px 28px; }
+    .metric-row { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .section-head { grid-template-columns:1fr; gap:8px; }
+    .split { grid-template-columns:1fr; }
+    .session { grid-template-columns:100px minmax(0,1fr); }
+    .usage-detail-grid { grid-template-columns:1fr; }
+    .evidence-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .shell { padding:0 18px 56px; }
+    .utility-inner { padding:9px 18px; }
+    .brandline span { display:none; }
+    .ui-btn, .ui-select { padding:8px 10px; }
+    header.hero { padding:58px 0 38px; }
+    .metric-row { grid-template-columns:1fr 1fr; gap:24px 18px; }
+    .bar-row { grid-template-columns:72px minmax(0,1fr) 52px; gap:8px; }
+    .session { grid-template-columns:1fr; gap:9px; }
+    .session-time { display:flex; flex-wrap:wrap; gap:6px 12px; }
+    .session-time span { display:inline; }
+    .session-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .evidence-grid { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+<div class="utility">
+  <div class="utility-inner">
+    <div class="brandline"><strong>Project Grind</strong><span id="utilityMode">Report</span></div>
+    <div class="utility-actions">
+      <select class="ui-select" id="themeSelect" aria-label="Theme">
+        <option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option>
+      </select>
+      <button class="ui-btn" id="downloadJson">JSON</button>
+      <button class="ui-btn primary" id="printReport">Print / PDF</button>
+    </div>
+  </div>
+</div>
+
+<main class="shell">
+  <header class="hero">
+    <p class="eyebrow" id="reportEyebrow">Project Grind · Report</p>
+    <h1 id="projectName">Project name</h1>
+    <div class="hero-meta" id="heroMeta"></div>
+    <p class="hero-note" id="heroNote"></p>
+  </header>
+
+  <div class="metric-row" id="headlineMetrics"></div>
+
+  <section id="time">
+    <div class="section-head">
+      <p class="section-num">01 · Time</p>
+      <div><h2>Time and rhythm</h2><p class="section-lede">How the project occupied time: active work, elapsed span, daily intensity, gaps, and overlapping agent activity.</p></div>
+    </div>
+    <div class="split">
+      <div><p class="chart-title">Active time by day</p><div class="chart-wrap" id="dailyChart"></div></div>
+      <div class="callout"><h3>Rhythm</h3><ul class="stat-list" id="timeStats"></ul></div>
+    </div>
+  </section>
+
+  <section id="usage">
+    <div class="section-head">
+      <p class="section-num">02 · Usage</p>
+      <div><h2>Models, tokens and agent mechanics</h2><p class="section-lede">Model mix, token categories, throughput, tool calls, and explicit skill use. Throughput appears only when request-level timing supports it.</p></div>
+    </div>
+    <div class="split">
+      <div><p class="chart-title">Harness share by active time</p><div class="chart-wrap"><div class="bars" id="harnessBars"></div></div></div>
+      <div class="callout"><h3>Usage totals</h3><ul class="stat-list" id="usageStats"></ul></div>
+    </div>
+    <p class="chart-title" style="margin-top:30px">Harness breakdown</p>
+    <div class="table-wrap"><table style="min-width:920px"><thead><tr><th>Harness</th><th class="num">Sessions</th><th class="num">Active</th><th class="num">Tokens</th><th class="num">Models</th><th class="num">Tools</th><th class="num">Skills</th><th>Evidence</th></tr></thead><tbody id="harnessTable"></tbody></table></div>
+    <p class="chart-title" style="margin-top:30px">Models observed</p>
+    <div class="table-wrap"><table style="min-width:1040px"><thead><tr><th>Model</th><th class="num">Sessions</th><th class="num">Tokens</th><th class="num">Input</th><th class="num">Output</th><th class="num">Reasoning</th><th class="num">Cached</th><th class="num">Input speed</th><th class="num">Output speed</th><th>Evidence</th></tr></thead><tbody id="modelTable"></tbody></table></div>
+    <div class="usage-detail-grid">
+      <div><p class="chart-title">Tool use</p><div class="bars" id="toolBars"></div></div>
+      <div><p class="chart-title">Skills invoked</p><div class="bars" id="skillBars"></div></div>
+    </div>
+  </section>
+
+  <section id="development">
+    <div class="section-head">
+      <p class="section-num">03 · Development</p>
+      <div><h2>What the work touched</h2><p class="section-lede">Development activity is summarized from observed files, commits, tool events, and classified work—not invented from session titles.</p></div>
+    </div>
+    <div class="split">
+      <div><p class="chart-title">Classified activity</p><div class="chart-wrap"><div class="bars" id="workBars"></div></div></div>
+      <div class="callout"><h3>Project activity</h3><ul class="stat-list" id="devStats"></ul></div>
+    </div>
+    <div class="table-wrap" style="margin-top:28px"><table><thead><tr><th>Hot file / area</th><th class="num">Touches</th><th class="num">Sessions</th><th>Observed signal</th></tr></thead><tbody id="hotFiles"></tbody></table></div>
+  </section>
+
+  <section id="sessionsSection">
+    <div class="section-head">
+      <p class="section-num">04 · Sessions</p>
+      <div><h2>Session history</h2><p class="section-lede">Full mode exposes the underlying sessions chronologically. Summaries stay short; evidence and metrics carry the detail.</p></div>
+    </div>
+    <div class="session-tools"><input class="search" id="sessionSearch" type="search" placeholder="Search sessions, harnesses, summaries, files…" /><button class="ui-btn" id="downloadCsv">Sessions CSV</button></div>
+    <div id="sessions"></div>
+  </section>
+
+  <section id="evidence">
+    <div class="section-head">
+      <p class="section-num" id="evidenceNum">05 · Evidence</p>
+      <div><h2>Coverage and confidence</h2><p class="section-lede">Every important total should say what evidence supports it. Missing data is a reported gap, not fake precision.</p></div>
+    </div>
+    <div class="evidence-grid" id="evidenceGrid"></div>
+    <div class="callout" style="margin-top:22px"><h3>Method note</h3><p id="methodNote"></p></div>
+  </section>
+
+  <section id="files">
+    <div class="section-head">
+      <p class="section-num" id="filesNum">06 · Files</p>
+      <div><h2>Portable output</h2><p class="section-lede">The HTML is the human layer. The normalized JSON/CSV and copied source evidence remain available for agents and later analysis.</p></div>
+    </div>
+    <div class="downloads" id="artifactDownloads"></div>
+  </section>
+
+  <footer>
+    <strong>Project Grind</strong> · Generated from normalized harness evidence. Visual language follows Kami’s parchment, ink-blue, serif-led editorial system.
+  </footer>
+</main>
+
+<script>
+/*
+  PROJECT GRIND TEMPLATE CONTRACT
+  -------------------------------
+  The build script replaces the marked REPORT_DATA block with normalized report JSON.
+  Do not fabricate missing values: use null and explain the gap in quality/method.
+  mode = "quick" omits per-session narratives; mode = "full" includes sessions[].
+
+  Provenance enum: recorded | derived | inferred | unavailable
+*/
+/* PROJECT_GRIND_DATA_START */
+const REPORT_DATA = {
+  meta: {
+    schema_version: "2.0",
+    mode: "full",
+    generated_at: "2026-11-19T14:30:00+05:00",
+    project_name: "Project Grind",
+    project_root: "/work/project-grind",
+    git_remote: "example/project-grind",
+    period_label: "Oct 1 – Oct 31, 2026",
+    period_start: "2026-10-01T00:00:00Z",
+    period_end: "2026-10-31T23:59:59Z",
+    harnesses_detected: 7,
+    harnesses_with_records: 7,
+    note: "Illustrative template data. Human active time is estimated separately from agent runtime; missing metrics stay unavailable rather than being guessed."
+  },
+  headline: {
+    active_time_hours: { value: 42.8, provenance: "derived", coverage: 0.96, note: "Non-overlapping observed activity windows." },
+    sessions: { value: 126, provenance: "recorded", coverage: 1 },
+    tokens_total: { value: 18640000, provenance: "derived", coverage: 0.89 },
+    models_observed: { value: 8, provenance: "recorded", coverage: 0.94 }
+  },
+  time: {
+    elapsed_span_days: 31,
+    active_days: 24,
+    work_blocks: 53,
+    avg_active_hours_per_active_day: 1.78,
+    avg_work_block_minutes: 48,
+    longest_work_block_minutes: 192,
+    longest_gap_hours: 26.4,
+    first_activity: "2026-10-01T09:14:00Z",
+    last_activity: "2026-10-31T22:08:00Z",
+    agent_runtime_hours: 61.3,
+    overlap_hours: 7.1,
+    daily: [
+      { date:"2026-10-01", label:"Oct 1", active_hours:1.8 }, { date:"2026-10-02", label:"Oct 2", active_hours:2.4 },
+      { date:"2026-10-03", label:"Oct 3", active_hours:0.9 }, { date:"2026-10-04", label:"Oct 4", active_hours:2.7 },
+      { date:"2026-10-05", label:"Oct 5", active_hours:3.2 }, { date:"2026-10-06", label:"Oct 6", active_hours:1.4 },
+      { date:"2026-10-07", label:"Oct 7", active_hours:2.1 }, { date:"2026-10-08", label:"Oct 8", active_hours:1.1 },
+      { date:"2026-10-09", label:"Oct 9", active_hours:2.8 }, { date:"2026-10-10", label:"Oct 10", active_hours:0.7 },
+      { date:"2026-10-11", label:"Oct 11", active_hours:2.0 }, { date:"2026-10-12", label:"Oct 12", active_hours:2.9 },
+      { date:"2026-10-13", label:"Oct 13", active_hours:1.7 }, { date:"2026-10-14", label:"Oct 14", active_hours:3.8 },
+      { date:"2026-10-15", label:"Oct 15", active_hours:2.5 }, { date:"2026-10-16", label:"Oct 16", active_hours:1.9 },
+      { date:"2026-10-17", label:"Oct 17", active_hours:2.2 }, { date:"2026-10-18", label:"Oct 18", active_hours:1.3 },
+      { date:"2026-10-19", label:"Oct 19", active_hours:2.6 }, { date:"2026-10-20", label:"Oct 20", active_hours:1.5 }
+    ]
+  },
+  usage: {
+    input_tokens: 10400000,
+    output_tokens: 5210000,
+    reasoning_tokens: 1840000,
+    cached_tokens: 1190000,
+    input_tokens_per_second: 1860.4,
+    output_tokens_per_second: 72.8,
+    tool_calls: 2864,
+    skill_invocations: 48,
+    model_count: 8,
+    harnesses: [
+      { name:"Codex", sessions:46, active_hours:16.7, tokens:7140000, models:3, tool_calls:1184, skill_invocations:21, provenance:"recorded" },
+      { name:"Claude Code", sessions:34, active_hours:12.2, tokens:6120000, models:2, tool_calls:824, skill_invocations:14, provenance:"recorded" },
+      { name:"Pi", sessions:21, active_hours:7.1, tokens:3020000, models:2, tool_calls:496, skill_invocations:9, provenance:"derived" },
+      { name:"Gemini CLI", sessions:14, active_hours:4.2, tokens:1680000, models:1, tool_calls:244, skill_invocations:4, provenance:"recorded" },
+      { name:"Other", sessions:11, active_hours:2.6, tokens:680000, models:2, tool_calls:116, skill_invocations:null, provenance:"derived" }
+    ],
+    models: [
+      { name:"gpt-5.6", provider:"OpenAI", sessions:39, tokens:6320000, input_tokens:3500000, output_tokens:1750000, reasoning_tokens:700000, cached_tokens:370000, input_tokens_per_second:2110.6, output_tokens_per_second:78.4, provenance:"recorded" },
+      { name:"claude-sonnet", provider:"Anthropic", sessions:31, tokens:5740000, input_tokens:3340000, output_tokens:1680000, reasoning_tokens:null, cached_tokens:720000, input_tokens_per_second:null, output_tokens_per_second:66.7, provenance:"recorded" },
+      { name:"gemini-pro", provider:"Google", sessions:14, tokens:1680000, input_tokens:980000, output_tokens:510000, reasoning_tokens:190000, cached_tokens:null, input_tokens_per_second:null, output_tokens_per_second:74.1, provenance:"recorded" },
+      { name:"other / mixed", provider:null, sessions:42, tokens:4900000, input_tokens:2580000, output_tokens:1270000, reasoning_tokens:950000, cached_tokens:100000, input_tokens_per_second:null, output_tokens_per_second:null, provenance:"derived" }
+    ],
+    tools: [
+      { name:"shell / terminal", calls:874, sessions:91, provenance:"recorded" },
+      { name:"file edit", calls:702, sessions:84, provenance:"recorded" },
+      { name:"file read", calls:564, sessions:96, provenance:"recorded" },
+      { name:"search / grep", calls:281, sessions:62, provenance:"recorded" },
+      { name:"test / build", calls:221, sessions:48, provenance:"derived" },
+      { name:"git", calls:134, sessions:39, provenance:"recorded" },
+      { name:"web / browser", calls:88, sessions:24, provenance:"recorded" }
+    ],
+    skills: [
+      { name:"impeccable", invocations:18, sessions:15, provenance:"recorded" },
+      { name:"skill-creator", invocations:11, sessions:7, provenance:"recorded" },
+      { name:"playwright", invocations:9, sessions:8, provenance:"recorded" },
+      { name:"other", invocations:10, sessions:9, provenance:"recorded" }
+    ]
+  },
+  development: {
+    files_created: 72,
+    files_modified: 286,
+    files_deleted: 18,
+    unique_files_touched: 319,
+    commits: 84,
+    tests_run: 413,
+    failed_test_events: 61,
+    activity_mix: [
+      { category:"Features", share:36 }, { category:"Debugging", share:27 }, { category:"Refactoring", share:18 },
+      { category:"Testing", share:12 }, { category:"Other", share:7 }
+    ],
+    hotspots: [
+      { path:"src/auth/", touches:88, sessions:31, signal:"Authentication, sessions, token refresh" },
+      { path:"src/report/", touches:71, sessions:28, signal:"Report normalization and rendering" },
+      { path:"tests/", touches:64, sessions:25, signal:"Regression and parser coverage" },
+      { path:"src/parsers/", touches:57, sessions:22, signal:"Harness adapters and ingestion" }
+    ]
+  },
+  sessions: [
+    { id:"108", date:"2026-10-14", start:"09:12", end:"10:46", harness:"Codex", model:"gpt-5.6", active_minutes:74, elapsed_minutes:94, tokens:426000, input_tokens:242000, output_tokens:116000, reasoning_tokens:51000, cached_tokens:17000, input_tokens_per_second:2180.2, output_tokens_per_second:79.1, summary:"Built the authentication middleware, changed API routes, and iterated after failing tests.", files:["src/auth/session.ts","src/api/routes.ts"], commits:2, tool_calls:46, tools:["shell","file edit","tests","git"], skills:["impeccable"], tags:["features","testing"] },
+    { id:"109", date:"2026-10-14", start:"11:08", end:"12:22", harness:"Claude Code", model:"claude-sonnet", active_minutes:58, elapsed_minutes:74, tokens:318000, input_tokens:192000, output_tokens:89000, reasoning_tokens:null, cached_tokens:37000, input_tokens_per_second:null, output_tokens_per_second:67.4, summary:"Corrected token refresh behavior and rewrote the error-handling path.", files:["src/auth/refresh.ts","src/errors.ts"], commits:1, tool_calls:31, tools:["file read","file edit","shell"], skills:[], tags:["debugging","refactoring"] },
+    { id:"110", date:"2026-10-14", start:"16:10", end:"17:44", harness:"Pi", model:"mixed", active_minutes:69, elapsed_minutes:94, tokens:251000, input_tokens:148000, output_tokens:72000, reasoning_tokens:31000, cached_tokens:null, input_tokens_per_second:null, output_tokens_per_second:null, summary:"Added parser coverage for interrupted sessions and normalized timestamps across two harness formats.", files:["src/parsers/pi.ts","tests/pi.test.ts"], commits:2, tool_calls:39, tools:["search","file edit","tests"], skills:["skill-creator"], tags:["testing","parsers"] },
+    { id:"111", date:"2026-10-15", start:"10:02", end:"11:20", harness:"Codex", model:"gpt-5.6", active_minutes:61, elapsed_minutes:78, tokens:337000, input_tokens:201000, output_tokens:96000, reasoning_tokens:40000, cached_tokens:null, input_tokens_per_second:2021.5, output_tokens_per_second:76.8, summary:"Refactored report aggregation and added non-overlapping active-time calculation.", files:["src/report/time.ts","src/report/index.ts"], commits:2, tool_calls:42, tools:["file edit","tests","git"], skills:[], tags:["refactoring","time"] }
+  ],
+  quality: {
+    session_coverage: 0.97,
+    time_coverage: 0.96,
+    token_coverage: 0.89,
+    model_coverage: 0.94,
+    tool_coverage: 0.91,
+    skill_coverage: 0.72,
+    speed_coverage: 0.41,
+    file_coverage: 0.92,
+    commit_coverage: 1,
+    method_note: "Active time is derived from timestamped activity windows and deduplicated across overlaps. Agent runtime is separate. Token and model totals include only recoverable records. Throughput is shown only for requests with explicit timing, so speed coverage is lower than token coverage."
+  },
+  artifacts: [
+    { label:"Normalized report", kind:"json", path:"report.json" },
+    { label:"Sessions table", kind:"csv", path:"sessions.csv" },
+    { label:"Agent-readable report", kind:"markdown", path:"REPORT.md" },
+    { label:"Source manifest", kind:"json", path:"sources-manifest.json" },
+    { label:"Copied source evidence", kind:"zip", path:"sources.zip" }
+  ]
+};
+/* PROJECT_GRIND_DATA_END */
+
+const $ = (s) => document.querySelector(s);
+const fmt = {
+  number(n){ return n == null ? "—" : new Intl.NumberFormat().format(n); },
+  compact(n){ return n == null ? "—" : new Intl.NumberFormat(undefined,{notation:"compact",maximumFractionDigits:1}).format(n); },
+  rate(n){ return n == null ? "—" : `${Number(n).toFixed(Number(n) < 100 ? 1 : 0)} tok/s`; },
+  hours(n){ return n == null ? "—" : `${Number(n).toFixed(n < 10 ? 1 : 0)}h`; },
+  minutes(n){ if(n==null) return "—"; const h=Math.floor(n/60), m=Math.round(n%60); return h ? `${h}h ${m}m` : `${m}m`; },
+  pct(n){ return n == null ? "—" : `${Math.round(n*100)}%`; }
+};
+function esc(s){ return String(s ?? "").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c])); }
+function prov(p){ const x=p||"unavailable"; return `<span class="provenance ${esc(x)}">${esc(x)}</span>`; }
+function stat(k,v,note=""){ return `<li><span class="k">${esc(k)}${note?`<small>${esc(note)}</small>`:""}</span><span class="v">${v ?? "—"}</span></li>`; }
+
+function renderHeader(){
+  const d=REPORT_DATA, mode=d.meta.mode||"quick";
+  $("#utilityMode").textContent = `${mode} report`;
+  $("#reportEyebrow").textContent = `Project Grind · ${mode === "full" ? "Full" : "Quick"} report`;
+  $("#projectName").textContent = d.meta.project_name || "Untitled project";
+  $("#heroMeta").innerHTML = [d.meta.period_label, `${d.meta.harnesses_with_records ?? 0}/${d.meta.harnesses_detected ?? 0} harnesses with records`, `${fmt.pct(d.quality?.session_coverage)} session coverage`].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join("");
+  $("#heroNote").textContent = d.meta.note || "";
+  const m=[
+    [fmt.hours(d.headline?.active_time_hours?.value),"Active time",d.headline?.active_time_hours],
+    [fmt.number(d.headline?.sessions?.value),"Sessions",d.headline?.sessions],
+    [fmt.compact(d.headline?.tokens_total?.value),"Tokens",d.headline?.tokens_total],
+    [fmt.number(d.headline?.models_observed?.value),"Models",d.headline?.models_observed]
+  ];
+  $("#headlineMetrics").innerHTML=m.map(([v,l,o])=>`<div class="metric"><div class="metric-value">${v}</div><div class="metric-label">${l}</div><div class="metric-note">${o?.provenance||"unavailable"} · ${fmt.pct(o?.coverage)}</div></div>`).join("");
+}
+
+function renderSpark(data){
+  if(!data?.length) return '<div class="empty">No daily activity available.</div>';
+  const W=760,H=190,p=22, max=Math.max(...data.map(d=>d.active_hours||0),1);
+  const pts=data.map((d,i)=>({x:p+(i*(W-p*2)/Math.max(1,data.length-1)),y:H-p-((d.active_hours||0)/max)*(H-p*2),...d}));
+  const dpath=pts.map((q,i)=>`${i?"L":"M"}${q.x.toFixed(1)},${q.y.toFixed(1)}`).join(" ");
+  const labels=pts.filter((_,i)=>i===0||i===pts.length-1||i===Math.floor(pts.length/2));
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="Active hours by day">
+    <line class="axis" x1="${p}" y1="${H-p}" x2="${W-p}" y2="${H-p}" />
+    <path class="path" d="${dpath}" />
+    ${pts.map(q=>`<circle class="dot" cx="${q.x}" cy="${q.y}" r="3" />`).join("")}
+    ${labels.map(q=>`<text x="${q.x}" y="${H-4}" text-anchor="middle">${esc(q.label)}</text>`).join("")}
+  </svg>`;
+}
+function renderTime(){
+  const t=REPORT_DATA.time||{};
+  $("#dailyChart").innerHTML=renderSpark(t.daily);
+  $("#timeStats").innerHTML=[
+    stat("Elapsed project span", `${fmt.number(t.elapsed_span_days)} days`),
+    stat("Active days", fmt.number(t.active_days)),
+    stat("Work blocks", fmt.number(t.work_blocks)),
+    stat("Avg active / active day", fmt.hours(t.avg_active_hours_per_active_day)),
+    stat("Average work block", fmt.minutes(t.avg_work_block_minutes)),
+    stat("Longest work block", fmt.minutes(t.longest_work_block_minutes)),
+    stat("Longest activity gap", fmt.hours(t.longest_gap_hours)),
+    stat("Agent runtime", fmt.hours(t.agent_runtime_hours),"Kept separate from human-time estimate"),
+    stat("Overlapping activity", fmt.hours(t.overlap_hours))
+  ].join("");
+}
+function bars(items,labelKey,valueKey,format){
+  if(!items?.length) return '<div class="empty">No breakdown available.</div>';
+  const max=Math.max(...items.map(x=>x[valueKey]||0),1);
+  return items.map(x=>`<div class="bar-row"><div class="bar-label" title="${esc(x[labelKey])}">${esc(x[labelKey])}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.max(1,(x[valueKey]||0)/max*100)}%"></div></div><div class="bar-value">${format(x[valueKey])}</div></div>`).join("");
+}
+function renderUsage(){
+  const u=REPORT_DATA.usage||{}, hs=u.harnesses||[], ms=u.models||[], ts=u.tools||[], ss=u.skills||[];
+  $("#harnessBars").innerHTML=bars(hs,"name","active_hours",fmt.hours);
+  $("#usageStats").innerHTML=[
+    stat("Input tokens",fmt.compact(u.input_tokens)), stat("Output tokens",fmt.compact(u.output_tokens)),
+    stat("Reasoning tokens",fmt.compact(u.reasoning_tokens)), stat("Cached tokens",fmt.compact(u.cached_tokens)),
+    stat("Input speed",fmt.rate(u.input_tokens_per_second),"Only explicit request timing"),
+    stat("Output speed",fmt.rate(u.output_tokens_per_second),"Only explicit generation timing"),
+    stat("Tool calls",fmt.number(u.tool_calls)), stat("Skill invocations",fmt.number(u.skill_invocations)),
+    stat("Models observed",fmt.number(u.model_count))
+  ].join("");
+  $("#harnessTable").innerHTML=hs.map(h=>`<tr><td class="name-cell">${esc(h.name)}</td><td class="num">${fmt.number(h.sessions)}</td><td class="num">${fmt.hours(h.active_hours)}</td><td class="num">${fmt.compact(h.tokens)}</td><td class="num">${fmt.number(h.models)}</td><td class="num">${fmt.number(h.tool_calls)}</td><td class="num">${fmt.number(h.skill_invocations)}</td><td>${prov(h.provenance)}</td></tr>`).join("") || `<tr><td colspan="8" class="empty">No harness breakdown.</td></tr>`;
+  $("#modelTable").innerHTML=ms.map(m=>`<tr><td class="name-cell">${esc(m.name)}${m.provider?`<span class="sub">${esc(m.provider)}</span>`:""}</td><td class="num">${fmt.number(m.sessions)}</td><td class="num">${fmt.compact(m.tokens)}</td><td class="num">${fmt.compact(m.input_tokens)}</td><td class="num">${fmt.compact(m.output_tokens)}</td><td class="num">${fmt.compact(m.reasoning_tokens)}</td><td class="num">${fmt.compact(m.cached_tokens)}</td><td class="num">${fmt.rate(m.input_tokens_per_second)}</td><td class="num">${fmt.rate(m.output_tokens_per_second)}</td><td>${prov(m.provenance)}</td></tr>`).join("") || `<tr><td colspan="10" class="empty">No model-level usage available.</td></tr>`;
+  $("#toolBars").innerHTML=bars(ts,"name","calls",fmt.number);
+  $("#skillBars").innerHTML=bars(ss,"name","invocations",fmt.number);
+}
+function renderDevelopment(){
+  const d=REPORT_DATA.development||{};
+  $("#workBars").innerHTML=bars(d.activity_mix||[],"category","share",x=>`${x}%`);
+  $("#devStats").innerHTML=[
+    stat("Files created",fmt.number(d.files_created)), stat("Files modified",fmt.number(d.files_modified)),
+    stat("Files deleted",fmt.number(d.files_deleted)), stat("Unique files touched",fmt.number(d.unique_files_touched)),
+    stat("Commits",fmt.number(d.commits)), stat("Tests run",fmt.number(d.tests_run)), stat("Failed test events",fmt.number(d.failed_test_events))
+  ].join("");
+  $("#hotFiles").innerHTML=(d.hotspots||[]).map(h=>`<tr><td class="name-cell"><code>${esc(h.path)}</code></td><td class="num">${fmt.number(h.touches)}</td><td class="num">${fmt.number(h.sessions)}</td><td>${esc(h.signal)}</td></tr>`).join("") || `<tr><td colspan="4" class="empty">No file hotspots available.</td></tr>`;
+}
+function groupBy(arr,key){ return arr.reduce((a,x)=>((a[x[key]]??=[]).push(x),a),{}); }
+function renderSessions(filter=""){
+  const mode=REPORT_DATA.meta?.mode||"quick", all=REPORT_DATA.sessions||[];
+  if(mode!=="full"){
+    $("#sessionsSection").classList.add("hide");
+    $("#evidenceNum").textContent="04 · Evidence"; $("#filesNum").textContent="05 · Files"; return;
+  }
+  $("#sessionsSection").classList.remove("hide");
+  const q=filter.trim().toLowerCase();
+  const rows=all.filter(s=>!q || JSON.stringify(s).toLowerCase().includes(q));
+  const groups=groupBy(rows,"date");
+  const sm=(label,value)=>value==null?"":`<div class="session-metric"><strong>${value}</strong>${esc(label)}</div>`;
+  $("#sessions").innerHTML=Object.entries(groups).sort((a,b)=>a[0].localeCompare(b[0])).map(([date,list])=>{
+    const mins=list.reduce((n,s)=>n+(s.active_minutes||0),0);
+    return `<div class="session-day"><div class="session-day-head"><h3>${esc(date)}</h3><span>${list.length} sessions · ${fmt.minutes(mins)}</span></div>${list.map(s=>{
+      const detailChips=[...(s.tags||[]).map(x=>`<span class="chip">${esc(x)}</span>`),...(s.tools||[]).slice(0,5).map(x=>`<span class="chip">tool · ${esc(x)}</span>`),...(s.skills||[]).slice(0,4).map(x=>`<span class="chip">skill · ${esc(x)}</span>`),...(s.files||[]).slice(0,2).map(x=>`<span class="chip">${esc(x)}</span>`)];
+      const metrics=[sm("active",fmt.minutes(s.active_minutes)),sm("tokens",fmt.compact(s.tokens)),sm("input",s.input_tokens==null?null:fmt.compact(s.input_tokens)),sm("output",s.output_tokens==null?null:fmt.compact(s.output_tokens)),sm("input tok/s",s.input_tokens_per_second==null?null:fmt.rate(s.input_tokens_per_second)),sm("output tok/s",s.output_tokens_per_second==null?null:fmt.rate(s.output_tokens_per_second)),sm("tool calls",s.tool_calls==null?null:fmt.number(s.tool_calls)),sm("skills",s.skills?.length?fmt.number(s.skills.length):null)].join("");
+      return `<article class="session"><div class="session-time"><span>${esc(s.start||"—")}–${esc(s.end||"—")}</span><span>${esc(s.harness)}</span><span>${esc(s.model||"model unavailable")}</span></div><div class="session-main"><h4>Session #${esc(s.id)}</h4><p>${esc(s.summary||"No session summary available.")}</p><div class="chips">${detailChips.join("")}</div><div class="session-metrics">${metrics}</div></div></article>`;
+    }).join("")}</div>`;
+  }).join("") || '<div class="empty">No sessions match this search.</div>';
+}
+function renderEvidence(){
+  const q=REPORT_DATA.quality||{};
+  const items=[
+    ["Sessions",q.session_coverage,"Observed session records"],
+    ["Time",q.time_coverage,"Timestamp/activity coverage"],
+    ["Tokens",q.token_coverage,"Recoverable token records"],
+    ["Models",q.model_coverage,"Recorded model identities"],
+    ["Tools",q.tool_coverage,"Explicit tool-call events"],
+    ["Skills",q.skill_coverage,"Explicit skill traces"],
+    ["Speed",q.speed_coverage,"Requests with usable timing"],
+    ["Files",q.file_coverage,"Observed file activity"],
+    ["Commits",q.commit_coverage,"Repository history"]
+  ];
+  $("#evidenceGrid").innerHTML=items.map(([l,v,d])=>`<div class="evidence"><div class="value">${fmt.pct(v)}</div><div class="label">${esc(l)} coverage</div><div class="detail">${esc(d)}</div></div>`).join("");
+  $("#methodNote").textContent=q.method_note||"No method note supplied.";
+}
+function renderArtifacts(){
+  const builtins=[
+    `<a href="#" class="download-link" id="saveHtml">Save this HTML</a>`,
+    `<a href="#" class="download-link" id="saveJsonInline">Normalized JSON</a>`
+  ];
+  const extra=(REPORT_DATA.artifacts||[]).map(a=>`<a class="download-link" href="${esc(a.path)}" download>${esc(a.label)} · ${esc(a.kind)}</a>`);
+  $("#artifactDownloads").innerHTML=[...builtins,...extra].join("");
+  $("#saveHtml").onclick=(e)=>{e.preventDefault(); downloadBlob(document.documentElement.outerHTML,"project-grind-report.html","text/html");};
+  $("#saveJsonInline").onclick=(e)=>{e.preventDefault(); downloadBlob(JSON.stringify(REPORT_DATA,null,2),"report.json","application/json");};
+}
+function downloadBlob(content,name,type){ const b=new Blob([content],{type}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),500); }
+function csvEscape(x){ const s=String(x??""); return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s; }
+function sessionsCsv(){ const h=["id","date","start","end","harness","model","active_minutes","elapsed_minutes","tokens","input_tokens","output_tokens","reasoning_tokens","cached_tokens","input_tokens_per_second","output_tokens_per_second","tool_calls","tools","skills","summary","files","commits","tags"]; return [h.join(","),...(REPORT_DATA.sessions||[]).map(s=>h.map(k=>csvEscape(Array.isArray(s[k])?s[k].join(" | "):s[k])).join(","))].join("\n"); }
+function bind(){
+  const sel=$("#themeSelect");
+  let savedTheme="auto";
+  try { savedTheme=localStorage.getItem("project-grind-theme")||"auto"; } catch (_) {}
+  sel.value=savedTheme;
+  document.documentElement.dataset.theme=sel.value;
+  sel.onchange=()=>{ document.documentElement.dataset.theme=sel.value; try { localStorage.setItem("project-grind-theme",sel.value); } catch (_) {} };
+  $("#printReport").onclick=()=>window.print();
+  $("#downloadJson").onclick=()=>downloadBlob(JSON.stringify(REPORT_DATA,null,2),"report.json","application/json");
+  $("#downloadCsv").onclick=()=>downloadBlob(sessionsCsv(),"sessions.csv","text/csv");
+  $("#sessionSearch").oninput=(e)=>renderSessions(e.target.value);
+}
+function render(){ renderHeader(); renderTime(); renderUsage(); renderDevelopment(); renderSessions(); renderEvidence(); renderArtifacts(); bind(); }
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tokenheimer"
+  short_description: "Reconstruct and visualize coding-agent project activity"
+  default_prompt: "Analyze this coding project across available agent harnesses and create a Tokenheimer report."

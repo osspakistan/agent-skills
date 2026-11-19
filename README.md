@@ -119,6 +119,11 @@ High-converting cold outreach emails and DMs for sales, fundraising, and partner
 - **When to reach for it:** When writing investor pitches, sales prospecting emails, or follow-ups that get replies.
 - **Install:** `npx skills add osspakistan/agent-skills --skill cold-email-writer`
 
+### 6. [tokenheimer](skills/tokenheimer/README.md)
+Reconstruct and visualize coding-agent activity, tokens, models, tools, and rhythm across harnesses.
+- **When to reach for it:** When you want to measure development time, token consumption, model throughput, or generate an interactive HTML report across Claude Code, Cursor, Codex, Pi, Cline, and Windsurf.
+- **Install:** `npx skills add osspakistan/agent-skills --skill tokenheimer`
+
 ---
 
 ## Repository Structure
@@ -148,9 +153,15 @@ agent-skills/
     │   ├── SKILL.md
     │   ├── README.md
     │   └── references/
-    └── cold-email-writer/
+    ├── cold-email-writer/
+    │   ├── SKILL.md
+    │   ├── README.md
+    │   └── references/
+    └── tokenheimer/
         ├── SKILL.md
         ├── README.md
+        ├── scripts/
+        ├── assets/
         └── references/
 ```
 
@@ -158,7 +169,7 @@ agent-skills/
 
 This repository uses **Semantic Versioning** (`MAJOR.MINOR.PATCH`).
 
-The current release is **`v1.1.0`**. Version progression follows `1.x.x`:
+The current release is **`v1.2.0`**. Version progression follows `1.x.x`:
 
 | Segment | Format | Meaning | When to Use | Examples |
 | :--- | :--- | :--- | :--- | :--- |

@@ -30,7 +30,8 @@ agent-skills/
 │   ├── human-pencil/          # Natural prose editor & AI cliché remover
 │   ├── human-pencil-det/      # DET writing practice & vocabulary bank
 │   ├── musk-email-writer/     # Urgent, first-principles executive memos
-│   └── cold-email-writer/     # High-converting cold outreach & investor pitches
+│   ├── cold-email-writer/     # High-converting cold outreach & investor pitches
+│   └── tokenheimer/           # Coding-agent activity, token & model analytics
 ├── LICENSE                    # MIT License
 ├── README.md                  # Human-facing documentation & install guides
 └── AGENTS.md                  # Agent operating instructions & repository rules
@@ -67,7 +68,7 @@ Every skill follows the standard Agent Skills specification:
 
 ### Semantic Versioning Guide (`MAJOR.MINOR.PATCH`)
 
-Current version: **`1.1.0`**. All future versions follow `1.x.x` progression:
+Current version: **`1.2.0`**. All future versions follow `1.x.x` progression:
 
 | Digit | Scope | When to Increment | Examples |
 | :--- | :--- | :--- | :--- |

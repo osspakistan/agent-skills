@@ -1,0 +1,243 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-grind.local/report.schema.json",
+  "title": "Project Grind normalized report",
+  "type": "object",
+  "required": ["meta", "headline", "time", "usage", "development", "quality", "artifacts"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["schema_version", "mode", "project_name", "period_label"],
+      "properties": {
+        "schema_version": {"type": "string"},
+        "mode": {"enum": ["quick", "full"]},
+        "generated_at": {"type": ["string", "null"]},
+        "project_name": {"type": "string"},
+        "project_root": {"type": ["string", "null"]},
+        "git_remote": {"type": ["string", "null"]},
+        "period_label": {"type": "string"},
+        "period_start": {"type": ["string", "null"]},
+        "period_end": {"type": ["string", "null"]},
+        "harnesses_detected": {"type": ["integer", "null"]},
+        "harnesses_with_records": {"type": ["integer", "null"]},
+        "note": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "headline": {
+      "type": "object",
+      "required": ["active_time_hours", "sessions", "tokens_total", "models_observed"],
+      "properties": {
+        "active_time_hours": {"$ref": "#/$defs/metric"},
+        "sessions": {"$ref": "#/$defs/metric"},
+        "tokens_total": {"$ref": "#/$defs/metric"},
+        "models_observed": {"$ref": "#/$defs/metric"}
+      }
+    },
+    "time": {
+      "type": "object",
+      "properties": {
+        "elapsed_span_days": {"type": ["number", "null"]},
+        "active_days": {"type": ["integer", "null"]},
+        "work_blocks": {"type": ["integer", "null"]},
+        "avg_active_hours_per_active_day": {"type": ["number", "null"]},
+        "avg_work_block_minutes": {"type": ["number", "null"]},
+        "longest_work_block_minutes": {"type": ["number", "null"]},
+        "longest_gap_hours": {"type": ["number", "null"]},
+        "first_activity": {"type": ["string", "null"]},
+        "last_activity": {"type": ["string", "null"]},
+        "agent_runtime_hours": {"type": ["number", "null"]},
+        "overlap_hours": {"type": ["number", "null"]},
+        "daily": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date", "active_hours"],
+            "properties": {
+              "date": {"type": "string"},
+              "label": {"type": ["string", "null"]},
+              "active_hours": {"type": ["number", "null"]}
+            }
+          }
+        }
+      }
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "input_tokens": {"type": ["integer", "null"]},
+        "output_tokens": {"type": ["integer", "null"]},
+        "reasoning_tokens": {"type": ["integer", "null"]},
+        "cached_tokens": {"type": ["integer", "null"]},
+        "input_tokens_per_second": {"type": ["number", "null"]},
+        "output_tokens_per_second": {"type": ["number", "null"]},
+        "tool_calls": {"type": ["integer", "null"]},
+        "skill_invocations": {"type": ["integer", "null"]},
+        "model_count": {"type": ["integer", "null"]},
+        "harnesses": {"type": "array", "items": {"$ref": "#/$defs/harness"}},
+        "models": {"type": "array", "items": {"$ref": "#/$defs/model"}},
+        "tools": {"type": "array", "items": {"$ref": "#/$defs/tool_usage"}},
+        "skills": {"type": "array", "items": {"$ref": "#/$defs/skill_usage"}}
+      }
+    },
+    "development": {
+      "type": "object",
+      "properties": {
+        "files_created": {"type": ["integer", "null"]},
+        "files_modified": {"type": ["integer", "null"]},
+        "files_deleted": {"type": ["integer", "null"]},
+        "unique_files_touched": {"type": ["integer", "null"]},
+        "commits": {"type": ["integer", "null"]},
+        "tests_run": {"type": ["integer", "null"]},
+        "failed_test_events": {"type": ["integer", "null"]},
+        "activity_mix": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["category", "share"],
+            "properties": {
+              "category": {"type": "string"},
+              "share": {"type": "number"},
+              "provenance": {"$ref": "#/$defs/provenance"}
+            }
+          }
+        },
+        "hotspots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path"],
+            "properties": {
+              "path": {"type": "string"},
+              "touches": {"type": ["integer", "null"]},
+              "sessions": {"type": ["integer", "null"]},
+              "signal": {"type": ["string", "null"]}
+            }
+          }
+        }
+      }
+    },
+    "sessions": {"type": "array", "items": {"$ref": "#/$defs/session"}},
+    "quality": {
+      "type": "object",
+      "properties": {
+        "session_coverage": {"$ref": "#/$defs/coverage"},
+        "time_coverage": {"$ref": "#/$defs/coverage"},
+        "token_coverage": {"$ref": "#/$defs/coverage"},
+        "model_coverage": {"$ref": "#/$defs/coverage"},
+        "tool_coverage": {"$ref": "#/$defs/coverage"},
+        "skill_coverage": {"$ref": "#/$defs/coverage"},
+        "speed_coverage": {"$ref": "#/$defs/coverage"},
+        "file_coverage": {"$ref": "#/$defs/coverage"},
+        "commit_coverage": {"$ref": "#/$defs/coverage"},
+        "method_note": {"type": ["string", "null"]}
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label", "kind", "path"],
+        "properties": {
+          "label": {"type": "string"},
+          "kind": {"type": "string"},
+          "path": {"type": "string"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "provenance": {"enum": ["recorded", "derived", "inferred", "unavailable"]},
+    "coverage": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "metric": {
+      "type": "object",
+      "required": ["value", "provenance"],
+      "properties": {
+        "value": {"type": ["number", "integer", "null"]},
+        "provenance": {"$ref": "#/$defs/provenance"},
+        "coverage": {"$ref": "#/$defs/coverage"},
+        "note": {"type": ["string", "null"]}
+      }
+    },
+    "harness": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string"},
+        "sessions": {"type": ["integer", "null"]},
+        "active_hours": {"type": ["number", "null"]},
+        "tokens": {"type": ["integer", "null"]},
+        "models": {"type": ["integer", "null"]},
+        "tool_calls": {"type": ["integer", "null"]},
+        "skill_invocations": {"type": ["integer", "null"]},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "model": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string"},
+        "provider": {"type": ["string", "null"]},
+        "sessions": {"type": ["integer", "null"]},
+        "tokens": {"type": ["integer", "null"]},
+        "input_tokens": {"type": ["integer", "null"]},
+        "output_tokens": {"type": ["integer", "null"]},
+        "reasoning_tokens": {"type": ["integer", "null"]},
+        "cached_tokens": {"type": ["integer", "null"]},
+        "input_tokens_per_second": {"type": ["number", "null"]},
+        "output_tokens_per_second": {"type": ["number", "null"]},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "tool_usage": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string"},
+        "calls": {"type": ["integer", "null"]},
+        "sessions": {"type": ["integer", "null"]},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "skill_usage": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string"},
+        "invocations": {"type": ["integer", "null"]},
+        "sessions": {"type": ["integer", "null"]},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "session": {
+      "type": "object",
+      "required": ["id", "date", "harness"],
+      "properties": {
+        "id": {"type": "string"},
+        "date": {"type": "string"},
+        "start": {"type": ["string", "null"]},
+        "end": {"type": ["string", "null"]},
+        "harness": {"type": "string"},
+        "model": {"type": ["string", "null"]},
+        "active_minutes": {"type": ["number", "null"]},
+        "elapsed_minutes": {"type": ["number", "null"]},
+        "tokens": {"type": ["integer", "null"]},
+        "input_tokens": {"type": ["integer", "null"]},
+        "output_tokens": {"type": ["integer", "null"]},
+        "reasoning_tokens": {"type": ["integer", "null"]},
+        "cached_tokens": {"type": ["integer", "null"]},
+        "input_tokens_per_second": {"type": ["number", "null"]},
+        "output_tokens_per_second": {"type": ["number", "null"]},
+        "summary": {"type": ["string", "null"]},
+        "files": {"type": "array", "items": {"type": "string"}},
+        "commits": {"type": ["integer", "null"]},
+        "tool_calls": {"type": ["integer", "null"]},
+        "tools": {"type": "array", "items": {"type": "string"}},
+        "skills": {"type": "array", "items": {"type": "string"}},
+        "tags": {"type": "array", "items": {"type": "string"}},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
