@@ -119,8 +119,8 @@ High-converting cold outreach emails and DMs for sales, fundraising, and partner
 - **When to reach for it:** When writing investor pitches, sales prospecting emails, or follow-ups that get replies.
 - **Install:** `npx skills add osspakistan/agent-skills --skill cold-email-writer`
 
-### 6. [tokenheimer](skills/tokenheimer/README.md)
-Reconstruct and visualize coding-agent activity, tokens, models, tools, and rhythm across harnesses.
+### 6. [tokenheimer](skills/tokenheimer/README.md) ☢️
+*Now I am become tokens, destroyer of context.* Reconstruct and visualize coding-agent activity, tokens, models, tools, and rhythm across harnesses.
 - **When to reach for it:** When you want to measure development time, token consumption, model throughput, or generate an interactive HTML report across Claude Code, Cursor, Codex, Pi, Cline, and Windsurf.
 - **Install:** `npx skills add osspakistan/agent-skills --skill tokenheimer`
 

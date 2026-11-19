@@ -3,9 +3,11 @@ name: tokenheimer
 description: Reconstruct a coding project's activity across local AI coding-agent harnesses and produce a normalized analytics package plus a fixed human-friendly HTML report. Use when the user wants to measure time spent on a project, sessions, token usage, models, input/output throughput, tool calls, skill usage, file/commit/test activity, work patterns, or compare activity across Codex, Claude Code, Cursor, Pi, Gemini CLI, OpenCode, Cline, Windsurf, and other coding harnesses. Supports Quick mode for aggregate project analytics and Full mode for the same analytics plus evidence-grounded per-session summaries.
 ---
 
-# Tokenheimer (Project Grind)
+# Tokenheimer ☢️
 
-Reconstruct one project's development effort from many coding-agent harnesses. Treat harnesses as evidence sources, sessions as activity units, and the project as the thing being measured.
+**Now I am become tokens, destroyer of context.**
+
+Reconstruct one project's development effort and coding-agent archaeology across many coding-agent harnesses. Treat harnesses as evidence sources, sessions as activity units, and the project as the thing being measured. No invented numbers, no mysterious cost estimates—just the work, the tokens, the models, and the receipts.
 
 Use the bundled renderer. Do not redesign the report on each run.
 
@@ -97,7 +99,7 @@ Use the fixed Kami-inspired visual renderer in `assets/report-template.html`. Do
 Build the portable files with:
 
 ```bash
-python scripts/build_report.py --data /path/to/report.json --out /path/to/project-grind-output
+python scripts/build_report.py --data /path/to/report.json --out /path/to/tokenheimer-output
 ```
 
 The HTML must preserve automatic/light/dark themes and its download controls. Quick mode hides session history. Full mode renders session history with a responsive full-width metric grid; never squeeze session metrics into a narrow side rail.
@@ -107,7 +109,7 @@ The HTML must preserve automatic/light/dark themes and its download controls. Qu
 Target this shape:
 
 ```text
-project-grind-output/
+tokenheimer-output/
 ├── report.html
 ├── report.json
 ├── REPORT.md
