@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Build Project Grind's portable HTML/CSV outputs from normalized report JSON.
+"""Build Tokenheimer's portable HTML/CSV outputs from normalized report JSON.
 
 Standard-library only. It intentionally rejects cost/spend fields because monetary
-cost is not part of the Project Grind data contract.
+cost is not part of the Tokenheimer data contract.
 """
 from __future__ import annotations
 
@@ -15,8 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TEMPLATE = ROOT / "assets" / "report-template.html"
-START = "/* PROJECT_GRIND_DATA_START */"
-END = "/* PROJECT_GRIND_DATA_END */"
+START = "/* TOKENHEIMER_DATA_START */"
+END = "/* TOKENHEIMER_DATA_END */"
 
 FORBIDDEN_KEYS = {"cost", "cost_usd", "price", "spend", "spend_usd"}
 CSV_FIELDS = [
@@ -48,7 +48,7 @@ def validate(data: dict) -> None:
         raise ValueError("meta.mode must be 'quick' or 'full'")
     for path, key in walk_keys(data):
         if key.lower() in FORBIDDEN_KEYS:
-            raise ValueError(f"monetary cost is outside the Project Grind contract: {path}.{key}")
+            raise ValueError(f"monetary cost is outside the Tokenheimer contract: {path}.{key}")
     headline = data.get("headline", {})
     for required in ("active_time_hours", "sessions", "tokens_total", "models_observed"):
         if required not in headline:
@@ -65,7 +65,7 @@ def js_json(data: dict) -> str:
 def render_html(data: dict, template: Path) -> str:
     text = template.read_text(encoding="utf-8")
     if START not in text or END not in text:
-        raise ValueError("template is missing Project Grind data markers")
+        raise ValueError("template is missing Tokenheimer data markers")
     pattern = re.compile(re.escape(START) + r".*?" + re.escape(END), re.S)
     block = f"{START}\nconst REPORT_DATA = {js_json(data)};\n{END}"
     return pattern.sub(block, text, count=1)
@@ -86,7 +86,7 @@ def write_sessions_csv(data: dict, path: Path) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build Project Grind HTML and session CSV from report.json")
+    parser = argparse.ArgumentParser(description="Build Tokenheimer HTML and session CSV from report.json")
     parser.add_argument("--data", required=True, type=Path, help="normalized report JSON")
     parser.add_argument("--out", required=True, type=Path, help="output directory")
     parser.add_argument("--template", type=Path, default=DEFAULT_TEMPLATE, help="override report template")

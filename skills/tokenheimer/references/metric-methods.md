@@ -1,6 +1,10 @@
-# Project Grind metric methods
+# Tokenheimer metric methods
 
 Use this reference when normalizing evidence or deciding whether a metric can be reported.
+
+## Hours + days display rule
+
+Display active work time together with the number of distinct active calendar days: **“30 active hours across 3 active days.”** These are separate measurements, not a conversion. Active days means dates with qualifying project activity in the chosen timezone, not the number of 24-hour periods or elapsed project span. Preserve precision and provenance. If only one value is supported, show it alone and mark the other unavailable.
 
 ## Evidence states
 
@@ -57,4 +61,4 @@ Files, commits, tests, failures, and hotspots must be grounded in session traces
 
 ## No cost metric
 
-Project Grind intentionally does not require or estimate monetary cost. Pricing is model/provider/account dependent, may be unavailable, and changes over time. Do not add cost to the core schema, session cards, tables, or headline metrics.
+Tokenheimer intentionally does not require or estimate monetary cost. Pricing is model/provider/account dependent, may be unavailable, and changes over time. Do not add cost to the core schema, session cards, tables, or headline metrics.

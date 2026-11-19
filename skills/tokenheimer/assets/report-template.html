@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="color-scheme" content="light dark" />
-<title>Project Grind Report</title>
+<title>Tokenheimer Report</title>
 <style>
   :root {
     --brand: #1B365D;
@@ -253,7 +253,7 @@
 <body>
 <div class="utility">
   <div class="utility-inner">
-    <div class="brandline"><strong>Project Grind</strong><span id="utilityMode">Report</span></div>
+    <div class="brandline"><strong>Tokenheimer</strong><span id="utilityMode">Report</span></div>
     <div class="utility-actions">
       <select class="ui-select" id="themeSelect" aria-label="Theme">
         <option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option>
@@ -266,7 +266,7 @@
 
 <main class="shell">
   <header class="hero">
-    <p class="eyebrow" id="reportEyebrow">Project Grind · Report</p>
+    <p class="eyebrow" id="reportEyebrow">Tokenheimer · Report</p>
     <h1 id="projectName">Project name</h1>
     <div class="hero-meta" id="heroMeta"></div>
     <p class="hero-note" id="heroNote"></p>
@@ -343,13 +343,13 @@
   </section>
 
   <footer>
-    <strong>Project Grind</strong> · Generated from normalized harness evidence. Visual language follows Kami’s parchment, ink-blue, serif-led editorial system.
+    <strong>Tokenheimer</strong> · Generated from normalized harness evidence. Visual language follows Kami’s parchment, ink-blue, serif-led editorial system.
   </footer>
 </main>
 
 <script>
 /*
-  PROJECT GRIND TEMPLATE CONTRACT
+  TOKENHEIMER TEMPLATE CONTRACT
   -------------------------------
   The build script replaces the marked REPORT_DATA block with normalized report JSON.
   Do not fabricate missing values: use null and explain the gap in quality/method.
@@ -357,15 +357,15 @@
 
   Provenance enum: recorded | derived | inferred | unavailable
 */
-/* PROJECT_GRIND_DATA_START */
+/* TOKENHEIMER_DATA_START */
 const REPORT_DATA = {
   meta: {
     schema_version: "2.0",
     mode: "full",
     generated_at: "2026-11-19T14:30:00+05:00",
-    project_name: "Project Grind",
-    project_root: "/work/project-grind",
-    git_remote: "example/project-grind",
+    project_name: "Tokenheimer",
+    project_root: "/work/tokenheimer",
+    git_remote: "example/tokenheimer",
     period_label: "Oct 1 – Oct 31, 2026",
     period_start: "2026-10-01T00:00:00Z",
     period_end: "2026-10-31T23:59:59Z",
@@ -488,7 +488,7 @@ const REPORT_DATA = {
     { label:"Copied source evidence", kind:"zip", path:"sources.zip" }
   ]
 };
-/* PROJECT_GRIND_DATA_END */
+/* TOKENHEIMER_DATA_END */
 
 const $ = (s) => document.querySelector(s);
 const fmt = {
@@ -506,7 +506,7 @@ function stat(k,v,note=""){ return `<li><span class="k">${esc(k)}${note?`<small>
 function renderHeader(){
   const d=REPORT_DATA, mode=d.meta.mode||"quick";
   $("#utilityMode").textContent = `${mode} report`;
-  $("#reportEyebrow").textContent = `Project Grind · ${mode === "full" ? "Full" : "Quick"} report`;
+  $("#reportEyebrow").textContent = `Tokenheimer · ${mode === "full" ? "Full" : "Quick"} report`;
   $("#projectName").textContent = d.meta.project_name || "Untitled project";
   $("#heroMeta").innerHTML = [d.meta.period_label, `${d.meta.harnesses_with_records ?? 0}/${d.meta.harnesses_detected ?? 0} harnesses with records`, `${fmt.pct(d.quality?.session_coverage)} session coverage`].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join("");
   $("#heroNote").textContent = d.meta.note || "";
@@ -516,7 +516,7 @@ function renderHeader(){
     [fmt.compact(d.headline?.tokens_total?.value),"Tokens",d.headline?.tokens_total],
     [fmt.number(d.headline?.models_observed?.value),"Models",d.headline?.models_observed]
   ];
-  $("#headlineMetrics").innerHTML=m.map(([v,l,o])=>`<div class="metric"><div class="metric-value">${v}</div><div class="metric-label">${l}</div><div class="metric-note">${o?.provenance||"unavailable"} · ${fmt.pct(o?.coverage)}</div></div>`).join("");
+  $("#headlineMetrics").innerHTML=m.map(([v,l,o],i)=>`<div class="metric"><div class="metric-value">${v}</div><div class="metric-label">${l}</div><div class="metric-note">${i===0 && Number.isFinite(d.time?.active_days) ? `Across ${fmt.number(d.time.active_days)} active ${d.time.active_days===1?"day":"days"} · ` : ""}${o?.provenance||"unavailable"} · ${fmt.pct(o?.coverage)}</div></div>`).join("");
 }
 
 function renderSpark(data){
@@ -537,7 +537,8 @@ function renderTime(){
   $("#dailyChart").innerHTML=renderSpark(t.daily);
   $("#timeStats").innerHTML=[
     stat("Elapsed project span", `${fmt.number(t.elapsed_span_days)} days`),
-    stat("Active days", fmt.number(t.active_days)),
+    stat("Active days", t.active_days == null ? "—" : `${fmt.number(t.active_days)} days`),
+    stat("Active hours across active days", t.active_days == null || d.headline?.active_time_hours?.value == null ? "—" : `${fmt.hours(d.headline.active_time_hours.value)} across ${fmt.number(t.active_days)} ${t.active_days===1?"day":"days"}`),
     stat("Work blocks", fmt.number(t.work_blocks)),
     stat("Avg active / active day", fmt.hours(t.avg_active_hours_per_active_day)),
     stat("Average work block", fmt.minutes(t.avg_work_block_minutes)),
@@ -622,7 +623,7 @@ function renderArtifacts(){
   ];
   const extra=(REPORT_DATA.artifacts||[]).map(a=>`<a class="download-link" href="${esc(a.path)}" download>${esc(a.label)} · ${esc(a.kind)}</a>`);
   $("#artifactDownloads").innerHTML=[...builtins,...extra].join("");
-  $("#saveHtml").onclick=(e)=>{e.preventDefault(); downloadBlob(document.documentElement.outerHTML,"project-grind-report.html","text/html");};
+  $("#saveHtml").onclick=(e)=>{e.preventDefault(); downloadBlob(document.documentElement.outerHTML,"tokenheimer-report.html","text/html");};
   $("#saveJsonInline").onclick=(e)=>{e.preventDefault(); downloadBlob(JSON.stringify(REPORT_DATA,null,2),"report.json","application/json");};
 }
 function downloadBlob(content,name,type){ const b=new Blob([content],{type}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),500); }
@@ -631,10 +632,10 @@ function sessionsCsv(){ const h=["id","date","start","end","harness","model","ac
 function bind(){
   const sel=$("#themeSelect");
   let savedTheme="auto";
-  try { savedTheme=localStorage.getItem("project-grind-theme")||"auto"; } catch (_) {}
+  try { savedTheme=localStorage.getItem("tokenheimer-theme")||"auto"; } catch (_) {}
   sel.value=savedTheme;
   document.documentElement.dataset.theme=sel.value;
-  sel.onchange=()=>{ document.documentElement.dataset.theme=sel.value; try { localStorage.setItem("project-grind-theme",sel.value); } catch (_) {} };
+  sel.onchange=()=>{ document.documentElement.dataset.theme=sel.value; try { localStorage.setItem("tokenheimer-theme",sel.value); } catch (_) {} };
   $("#printReport").onclick=()=>window.print();
   $("#downloadJson").onclick=()=>downloadBlob(JSON.stringify(REPORT_DATA,null,2),"report.json","application/json");
   $("#downloadCsv").onclick=()=>downloadBlob(sessionsCsv(),"sessions.csv","text/csv");

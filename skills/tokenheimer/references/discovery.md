@@ -1,4 +1,4 @@
-# Project Grind evidence discovery
+# Tokenheimer evidence discovery
 
 Use this reference when locating coding-agent/harness records for a project.
 

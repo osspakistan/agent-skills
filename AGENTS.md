@@ -68,7 +68,7 @@ Every skill follows the standard Agent Skills specification:
 
 ### Semantic Versioning Guide (`MAJOR.MINOR.PATCH`)
 
-Current version: **`1.2.0`**. All future versions follow `1.x.x` progression:
+Current version: **`1.2.1`**. All future versions follow `1.x.x` progression:
 
 | Digit | Scope | When to Increment | Examples |
 | :--- | :--- | :--- | :--- |

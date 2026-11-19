@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://project-grind.local/report.schema.json",
-  "title": "Project Grind normalized report",
+  "$id": "https://tokenheimer.local/report.schema.json",
+  "title": "Tokenheimer normalized report",
   "type": "object",
   "required": ["meta", "headline", "time", "usage", "development", "quality", "artifacts"],
   "properties": {

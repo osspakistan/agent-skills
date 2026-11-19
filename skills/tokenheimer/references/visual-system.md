@@ -1,4 +1,4 @@
-# Project Grind visual system
+# Tokenheimer visual system
 
 Read this only when maintaining `assets/report-template.html`. Normal report runs should use the template as-is.
 
