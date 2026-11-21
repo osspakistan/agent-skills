@@ -22,6 +22,8 @@ Explain why the idea matters and how the argument works in connected paragraphs.
 
 Use bullets only when the source presents distinct points that are genuinely easier to scan as a list. Order points by importance, but do not target a fixed number. Whether in prose or bullets, include specific evidence and explain how it supports the claim; do not repeat the opening.
 
+**Length:** Unless the user asks for detail, aim for 100–160 words and do not exceed 180. Choose at most three supporting details. Do not recap the article section by section or preserve every example.
+
 **Closing thought (no header)**
 End with one useful implication, action, or insight when the source supports one. Do not add a generic conclusion heading or repeat the opening.
 

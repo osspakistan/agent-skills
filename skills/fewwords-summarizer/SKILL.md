@@ -49,7 +49,7 @@ Before loading any rules or prompts, you MUST have the full content in hand:
 
 Once the full text is acquired, read [`references/classifier.md`](references/classifier.md).
 
-Match the primary purpose of the text (not the medium) and identify which prompt file to load.
+Identify the reader's explicit need first—understand, extract, or decide/act. If the user only asks for a summary, infer the likely need from the source. Then use the content pattern to choose a prompt format. Carry the reader need into the draft; do not treat the source's sections as a checklist.
 
 ### Step 3 — Load Strategy Prompt
 
@@ -84,6 +84,7 @@ Do not explain your classification or announce the steps. Output only the summar
 - **Dev terminology / code:** Inline backticks for commands, APIs, specs: `npm install`, `128GB`, `TCP/IP`.
 - **Paragraphs:** Usually group 1-3 connected sentences in a paragraph. Use a new line or paragraph when it helps the reader follow a new thought; do not put every sentence on its own line by default.
 - **Attribution:** State straightforward facts directly. Attribute opinions, predictions, disputed claims, and interpretations to the actual speaker when that distinction matters. For videos, never make the video itself the speaker: do not write “this video says,” “the video argues,” or “the author of the video says.” Name the presenter when known; otherwise use “the host” only where attribution is needed, and state ordinary facts directly. For podcasts and interviews, name the host and guest when known and distinguish whose view is whose.
+- **Article length:** Unless the user requests more depth, aim for 100–160 words and never exceed 180. Use less for shorter sources. Keep the central claim, at most three essential supporting details, and one useful implication. Do not recap every section or list every example.
 - **Deduplication:** State repeated points exactly once.
 - **Section headings:** Use only when they help navigation; keep them short (usually 1–3 words), natural, and specific to the section. Do not begin a body heading with “The” or use generic “Takeaway(s)” / “Conclusion” labels. Usually leave the closing thought unheaded.
 

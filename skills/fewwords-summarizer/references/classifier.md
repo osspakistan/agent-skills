@@ -1,56 +1,66 @@
 # Classifier
 
-Before generating any summary, read enough of the content to classify it. Medium is irrelevant — it's all text in the end.
+Classify the reader's need before choosing a summary format. Medium (article, video, podcast) does not determine the need.
 
 ---
 
-## Step 1: Read the Content
+## Step 1: Read the request and source
 
-For URLs: fetch using [`references/fetching.md`](fetching.md) (via `curl.md`, `r.jina.ai`, or direct `curl`), then skim the intro, subheadings, and conclusion (or video title, description, transcript).
-
-For pasted text: read the opening paragraph and any visible structure.
+For URLs, fetch the full content using [`references/fetching.md`](fetching.md). Read enough to identify the user's goal and the source's main purpose. Do not infer a more detailed request than the user made.
 
 ---
 
-## Step 2: Pick a Type
+## Step 2: Identify the reader's primary need
 
-Match the **primary purpose** of the content — not the medium (article vs. video).
+If the user states a goal, follow it. Otherwise infer one primary need from the content and the likely reason someone would read it:
 
-| Type | What it's doing | Load |
+| Reader need | The reader wants to… | Prioritize |
 |---|---|---|
-| **Essay / Analysis** | Making an argument, explaining a concept, academic writing, long-form research, educational explainer | `references/prompts/essay-analysis.md` |
-| **Tutorial / How-To** | Teaching someone to do something, step-by-step, follow-along, build-along | `references/prompts/tutorial-howto.md` |
-| **News / Announcement** | Reporting what happened, product launches, press releases, current events | `references/prompts/news-announcement.md` |
-| **Review / Comparison** | Evaluating a product or tool, should you buy, hands-on test, "best X" with opinions | `references/prompts/review-comparison.md` |
-| **Interview / Podcast** | Conversation with a guest, Q&A, long-form dialogue, profile piece built around quotes | `references/prompts/interview-podcast.md` |
-| **Opinion / Commentary** | Personal argument, hot take, reaction, creator's position on something | `references/prompts/opinion-commentary.md` |
-| **Light / General** | Entertainment, casual content, lifestyle, no clear thesis, doesn't fit above | `references/prompts/light-general.md` |
+| **Understand** | Learn an idea, argument, cause, or context | The central claim and the reasoning that supports it; include only context needed to follow the argument. |
+| **Extract** | Get useful facts, specifications, prices, or steps without the backstory | The exact details needed for lookup, comparison, or execution; remove anecdotes, repeated points, and SEO filler. |
+| **Decide / act** | Choose, respond, or know whether something matters now | The verdict or change, the most important trade-offs or consequences, and any supported next step. |
+
+A request such as “just the numbers” selects **Extract**, even if the source is an essay. “Should I buy this?” selects **Decide / act**, even if the source is a review video. A generic “summarize this” uses the source's primary purpose to infer the need.
 
 ---
 
-## Step 3: When It's Ambiguous
+## Step 3: Choose the content format
 
-**Mixed content** — pick the dominant purpose. A tutorial article with strong opinion = Tutorial. A news article with deep analysis = Essay/Analysis.
+Use the reader need to decide what information belongs; use the source pattern to choose the prompt format. Do not let a format's headings become a checklist of everything to include.
 
-**Defaults:**
-- Can't tell → **Essay / Analysis**
-- Video that clearly entertains more than informs → **Light / General**
+| Source pattern | Usual reader need | Load |
+|---|---|---|
+| Essay, research, explanation, or deep analysis | **Understand** | `references/prompts/essay-analysis.md` |
+| How-to, tutorial, or build guide | **Extract** the steps needed to do it | `references/prompts/tutorial-howto.md` |
+| News, launch, or time-sensitive update | **Decide / act** on what changed and why it matters | `references/prompts/news-announcement.md` |
+| Product review, buying guide, or comparison | **Decide / act** | `references/prompts/review-comparison.md` |
+| Interview, podcast, or conversation | **Understand** the speakers' distinct views | `references/prompts/interview-podcast.md` |
+| Opinion or commentary | **Understand** the argument and how well it is supported | `references/prompts/opinion-commentary.md` |
+| Entertainment or general-interest piece | **Understand** the gist and whether it is worth the reader's time | `references/prompts/light-general.md` |
 
----
-
-## Step 4: Special Cases
-
-**YouTube Shorts** — reject immediately: *"This is a Short. Not enough content to summarize."*
-
-**Paywalled content** — tell the user: *"This content is paywalled. Paste the text and I'll summarize it."*
-
-**No transcript available** — tell the user what metadata you can work with and ask if they want a metadata-only summary.
-
-**Reddit threads** — out of scope for this skill.
+When the explicit request conflicts with the usual need in the table, keep the source-appropriate format but follow the user's requested need when selecting facts and emphasis.
 
 ---
 
-## Step 5: Load and Apply
+## Step 4: Resolve ambiguity
 
-1. Load the prompt from the file matched above
-2. The prompt handles the rest — follow it fully
+- A tutorial with a strong opinion is still a tutorial if the reader wants to follow its steps.
+- A news piece with deeper explanation can use Essay / Analysis if the reader wants to understand the argument rather than decide what to do.
+- A product article with many specifications is a Review / Comparison when the reader is deciding whether to buy; use Extract when they ask for specs only.
+- If the request is generic and the source is explanatory or argumentative, default to **Understand**. Do not turn this default into an exhaustive section-by-section recap.
+- If the source mostly entertains and has little useful information, use **Light / General**.
+
+---
+
+## Step 5: Special cases
+
+- **YouTube Shorts:** reject immediately: *“This is a Short. Not enough content to summarize.”*
+- **Paywalled content:** tell the user: *“This content is paywalled. Paste the text and I'll summarize it.”*
+- **No transcript available:** tell the user what metadata is available and ask if they want a metadata-only summary.
+- **Reddit threads:** out of scope for this skill.
+
+---
+
+## Step 6: Draft for that need
+
+Load the selected prompt and `writing-quality.md`. Carry the chosen reader need into the draft. Include only details that help satisfy it; do not fill every section or preserve every example just because the source contains them.

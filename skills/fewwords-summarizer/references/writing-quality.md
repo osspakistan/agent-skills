@@ -22,6 +22,7 @@ Make the summary accurate, easy to follow on first read, and natural to read alo
 - **Connected Reasoning:** Keep related steps together and explain them in the order the reader needs. Make the relationship between adjacent sentences clear; add a transition only when it reflects the source's logic.
 - **Read-Aloud Flow:** Read the summary aloud. If a sentence or transition makes you stumble, revise it. Split a sentence when it carries too many ideas, not to meet a word-count target. Do not turn every thought into a short standalone sentence.
 - **Concrete Facts:** Prefer concrete facts, named actors, specific verbs, and examples supported by the draft. When claims need sourcing, flag the gap instead of inventing citations.
+- **Article compression:** Unless the user asks for detail, aim for 100–160 words and cap article summaries at 180. Select the central claim and up to three essential details; do not retell the piece section by section or include every example.
 
 ---
 
