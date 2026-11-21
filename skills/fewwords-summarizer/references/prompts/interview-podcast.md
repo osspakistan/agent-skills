@@ -6,7 +6,7 @@ Use for: interview articles, Q&A write-ups, profile pieces built around quotes, 
 
 You're summarizing this for someone who wants the key insights without reading or listening to the whole conversation.
 
-Focus: Who's speaking? What did they say that matters? What were the best moments?
+Focus: Who's speaking? What did they say that matters? What were the best moments? For podcasts and interviews, name the host and guest when known, and keep their views distinct. For video sources, never write “this video says,” “the video argues,” or “the author of the video says”; attribute views to the named presenter or host instead.
 
 ---
 
@@ -14,13 +14,13 @@ Focus: Who's speaking? What did they say that matters? What were the best moment
 
 TITLE: [Guest Name: Main Thesis or Discussion Topic]
 
-**The Guest**
+**Guest**
 Who is being interviewed? One sentence on why they matter (their role, achievement, or expertise).
 
-**The Topic**
+**Topic**
 What are they mainly discussing? 1-2 sentences.
 
-## [*keep this section head dynamic. Keep it conversational and max 3 words. Use casual language. Examples: "Key Moments", "Core Insights". Unlike standard headings, do NOT use the `The {xyz}` pattern*]
+## [*Use a short, specific heading for this section (up to 3 words). Do not begin it with “The” or use a generic template label; omit it if no heading helps.*]
 
 5-7 most interesting, surprising, or consequential things said:
 - Format: `[Topic]: Key insight or statement`
@@ -30,7 +30,7 @@ What are they mainly discussing? 1-2 sentences.
 **Disagreement** *(skip if no tension)*
 Did the host and guest push back or disagree on anything? Summarize both sides in 1-2 sentences.
 
-## [*keep this section head dynamic. 2-3 words matching the vibe. Examples: "Best Quote", "Mic Drop", "Sharpest Line". Do NOT use the `The {xyz}` pattern*]
+## [*Use a short, specific heading for this section (up to 3 words). Do not begin it with “The” or use a generic template label; omit it if no heading helps.*]
 
 The most memorable line from the conversation:
 > [Quote in their actual words]
@@ -43,5 +43,5 @@ The most memorable line from the conversation:
 ---
 
 ### Strict Heading & Quality Rules:
-- Dynamic headers MUST be conversational, max 3 words, and NEVER use `The {xyz}`.
+- Body headings should be short (usually 1–3 words), specific to the section, and optional when they add no value. Do not begin a body heading with “The” or label the conclusion “Takeaway(s)” or “Conclusion”; usually leave the closing thought unheaded.
 - Tone: Conversational but informative. Capture the flow of debate and ideas, not just a dry fact list.

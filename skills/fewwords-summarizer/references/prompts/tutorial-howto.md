@@ -22,7 +22,7 @@ Prerequisites, software, tools, packages, materials, or prior knowledge.
 - Item one
 - Item two
 
-## [*keep this section head dynamic. Keep it conversational and max 3 words. Use casual language. Examples: "Build", "Setup", "The Steps". Unlike standard headings, do NOT use the `The {xyz}` pattern*]
+## [*Use a short, specific heading for this section (up to 3 words). Do not begin it with “The” or use a generic template label; omit it if no heading helps.*]
 
 Number each step clearly. Include exact settings, commands, code, or measurements mentioned:
 1. Step with specific detail
@@ -31,7 +31,7 @@ Number each step clearly. Include exact settings, commands, code, or measurement
 
 If the source skips steps or makes assumptions, flag it: *(source skips auth setup)*
 
-## [*keep this section head dynamic. Keep it conversational and max 3 words. Use casual language. Examples: "Gotchas", "Watch Out", "Lessons". Unlike standard headings, do NOT use the `The {xyz}` pattern*]
+## [*Use a short, specific heading for this section (up to 3 words). Do not begin it with “The” or use a generic template label; omit it if no heading helps.*]
 
 Specific warnings, failure modes, or common mistakes mentioned. Skip if none.
 
@@ -44,6 +44,6 @@ Specific warnings, failure modes, or common mistakes mentioned. Skip if none.
 ---
 
 ### Strict Heading & Quality Rules:
-- Dynamic headers MUST be conversational, max 3 words, and NEVER use `The {xyz}`.
+- Body headings should be short (usually 1–3 words), specific to the section, and optional when they add no value. Do not begin a body heading with “The” or label the conclusion “Takeaway(s)” or “Conclusion”; usually leave the closing thought unheaded.
 - Formatting freedom: use tables, callouts, or inline code `like this` to make replication foolproof.
 - Tone: Clear and instructional. Help someone replicate this successfully.

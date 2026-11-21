@@ -65,13 +65,13 @@ Load only the single prompt file determined by the classifier:
 | Opinion / Commentary | [`references/prompts/opinion-commentary.md`](references/prompts/opinion-commentary.md) |
 | Light / General | [`references/prompts/light-general.md`](references/prompts/light-general.md) |
 
-### Step 4 — Draft & Apply Writing Quality
+### Step 4 — Draft & Check for Clarity
 
 Now load [`references/writing-quality.md`](references/writing-quality.md).
 
-Draft the summary using the structure from Step 3, and run the pattern checklist from `writing-quality.md` to prune AI clichés, formulaic openers, and fluff.
+Draft the summary using the selected prompt. Use the writing-quality guidance to check accuracy, clarity, and flow. Treat its pattern checklist as diagnostic, not a list of banned constructions: revise a phrase only when it weakens meaning, clarity, or natural flow. Do not optimize for whether a reader thinks the prose was written by AI.
 
-Do not explain your classification or announce the steps. Output only the clean summary.
+Do not explain your classification or announce the steps. Output only the summary.
 
 ---
 
@@ -82,9 +82,10 @@ Do not explain your classification or announce the steps. Output only the clean 
 - *Companies, products, tools* in italic: *Apple*, *VSCode*
 - **Block quotes:** Use markdown quote format (`> Quote`) without enclosing quotation marks (`"..."`).
 - **Dev terminology / code:** Inline backticks for commands, APIs, specs: `npm install`, `128GB`, `TCP/IP`.
-- **Paragraphs:** 2-3 sentences max, with one sentence per line and a blank line after each sentence.
-- **Attribution ban:** Never say "the author" or "this article". Speak the facts directly.
+- **Paragraphs:** Usually group 1-3 connected sentences in a paragraph. Use a new line or paragraph when it helps the reader follow a new thought; do not put every sentence on its own line by default.
+- **Attribution:** State straightforward facts directly. Attribute opinions, predictions, disputed claims, and interpretations to the actual speaker when that distinction matters. For videos, never make the video itself the speaker: do not write “this video says,” “the video argues,” or “the author of the video says.” Name the presenter when known; otherwise use “the host” only where attribution is needed, and state ordinary facts directly. For podcasts and interviews, name the host and guest when known and distinguish whose view is whose.
 - **Deduplication:** State repeated points exactly once.
+- **Section headings:** Use only when they help navigation; keep them short (usually 1–3 words), natural, and specific to the section. Do not begin a body heading with “The” or use generic “Takeaway(s)” / “Conclusion” labels. Usually leave the closing thought unheaded.
 
 ---
 

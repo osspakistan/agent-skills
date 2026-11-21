@@ -7,9 +7,9 @@
 
 ## The Goal
 
-Make the summary sound like a sharp, well-read person wrote it on a good day. Remove formulaic, padded, or AI-coded prose. Preserve meaning, specifics, and the natural shape of the source.
+Make the summary accurate, easy to follow on first read, and natural to read aloud. Preserve the source's meaning, specifics, uncertainty, and useful cadence. Remove padding or formulaic language when it gets in the reader's way. Do not optimize for whether someone thinks the prose was written by AI.
 
-**Never invent facts, sources, quotes, statistics, experiences, or opinions to make prose feel more human.**
+**Never invent facts, sources, quotes, statistics, experiences, or opinions to make prose feel more natural.**
 
 ---
 
@@ -19,13 +19,15 @@ Make the summary sound like a sharp, well-read person wrote it on a good day. Re
 - **Tone Calibration:** Notice the source's vocabulary, cadence, humor, bluntness, uncertainty, and polish. Keep strong sentences, distinctive details, real emotion, mixed feelings, and honest uncertainty. A formal or slightly awkward sentence is not automatically a problem.
 - **Voice & Clarity:** Use active voice when it clarifies who did what. Keep passive voice when the actor is unknown, irrelevant, or less important than the result. Keep fragments when they fit the writer or format.
 - **No Manufactured Intimacy:** Vary sentence length and paragraph shape naturally. Do not add fake intimacy, jokes, first-person opinions, or manufactured urgency to neutral or technical content.
+- **Connected Reasoning:** Keep related steps together and explain them in the order the reader needs. Make the relationship between adjacent sentences clear; add a transition only when it reflects the source's logic.
+- **Read-Aloud Flow:** Read the summary aloud. If a sentence or transition makes you stumble, revise it. Split a sentence when it carries too many ideas, not to meet a word-count target. Do not turn every thought into a short standalone sentence.
 - **Concrete Facts:** Prefer concrete facts, named actors, specific verbs, and examples supported by the draft. When claims need sourcing, flag the gap instead of inventing citations.
 
 ---
 
 ## Pattern Guide Checklist — Scan Before Finishing
 
-Inspect for pattern clusters, not isolated words. Treat these as diagnostic checkpoints:
+Inspect for pattern clusters, not isolated words. Treat these as diagnostic checkpoints, not bans. Keep clear, natural wording even if it resembles a listed pattern; revise it only when it weakens clarity, flow, specificity, or accuracy.
 
 ### 1. Inflated Claims and Unsupported Authority
 - **Significance puffery:** "marks a pivotal moment," "stands as a testament," "plays a vital role," "underscores its importance," "sets the stage for," or claiming a small fact reflects a broad trend. State what happened and let the reader judge.
@@ -62,15 +64,16 @@ Inspect for pattern clusters, not isolated words. Treat these as diagnostic chec
 - **Noun piles & weak verb phrases:** "made a decision" or "has the ability to process" → "decided" or "can process."
 
 ### 4. Layout, Formatting & Attribution Discipline
-- **Paragraph breathing rule:** Keep paragraphs short (2-3 sentences max). Write one sentence per line with a blank line after each sentence.
+- **Paragraphs:** Usually keep paragraphs to 1-3 connected sentences. Do not put every sentence on its own line; group sentences when that makes the thought easier to follow.
 - **Quotation format:** Use markdown quote blocks (`> Quote goes here`) strictly WITHOUT quotation marks (`"..."`).
 - **Dev terminology / code:** Inline code backticks for commands, APIs, protocols, technical specs: `npm install`, `TCP/IP`, `O(n)`.
 - **Entity styling:** Human names in **bold**; companies, products, tools, and platforms in *italics*.
 - **Title format:** Always output on its own line starting with plain `TITLE: ` (do not bold).
-- **Attribution ban:** Speak the information directly as your own. Never use meta-attributions like "the author states", "the article mentions", or "in this video".
+- **Attribution:** State straightforward facts directly. Attribute opinions, predictions, disputed claims, and interpretations to the actual speaker when that distinction matters. For videos, never make the video itself the speaker: do not write “this video says,” “the video argues,” or “the author of the video says.” Name the presenter when known; otherwise use “the host” only where attribution is needed. For podcasts and interviews, name the host and guest when known and distinguish their views. Avoid repetitive meta-attributions that do not help the reader.
 - **Deduplication:** If a fact, argument, or warning is repeated multiple times in the source, state it once.
-- **Dynamic headers:** Keep body section headings dynamic, conversational, and max 3 words.
-- **Header pattern ban:** NEVER use the formulaic `The {xyz}` pattern (banned: *The Overview*, *The Breakdown*, *The Takeaway*, *The Facts*, *The Key Points*).
+- **Body headings:** Use headings only when they help navigation. Keep them short (usually 1–3 words), natural, and specific to the section.
+- **No “The” heading pattern:** Do not begin a body heading with “The”; avoid generic labels such as “Overview,” “Key Points,” or “Takeaway.” This rule does not apply to the required `TITLE:` line.
+- **Conclusions:** Usually end with a connected, unheaded closing thought. If a heading genuinely helps, make it specific to the conclusion; do not use “Takeaway(s)” or “Conclusion” as stock labels.
 - **Em/en dashes:** In short copy, usually replace with a period, comma, or parentheses. Retain only when it genuinely improves cadence.
 - **Overformatted emphasis:** Do not bold ordinary nouns or scatter emoji headings.
 - **Chatbot residue:** Strip "Great question," "I hope this helps," "let me know if you need anything else."
@@ -80,6 +83,8 @@ Inspect for pattern clusters, not isolated words. Treat these as diagnostic chec
 ## Finish Check
 
 Reread the full output:
-1. Does it preserve the source's actual meaning and voice?
+1. Does it preserve the source's meaning, uncertainty, and useful voice?
 2. Is each claim backed by the source, with zero invented facts or metrics?
-3. Did you prune away clusters from the checklist that weaken the piece?
+3. Can a reader follow the reasoning from one sentence to the next on first read?
+4. Does it sound natural when read aloud, without being forced into short sentences or a fixed rhythm?
+5. Did you revise only pattern clusters that actually weaken the summary?

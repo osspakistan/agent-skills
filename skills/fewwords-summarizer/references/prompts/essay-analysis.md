@@ -15,35 +15,23 @@ Focus: What's the central claim? Why does it matter? What should they remember?
 TITLE: [Improved, honest title — rewrite if clickbait]
 
 **Opening (no header)**
-One sentence capturing the central claim, thesis, or concept being explained.
+One sentence capturing the central claim, thesis, or concept.
 
-**Why It Matters**
-Why should someone care? What problem does it address, or what does understanding it change? 2-3 sentences. Context and motivation, not repetition of the opening.
+**Body (no fixed headings)**
+Explain why the idea matters and how the argument works in connected paragraphs. Bring in relevant context where the reader needs it; do not create separate sections just to fill a template.
 
-## [*keep this section head dynamic. Keep it conversational and max 3 words. Use casual language. Unlike `Key Points` or `The Explanation`, do NOT use the `The {xyz}` pattern*]
+Use bullets only when the source presents distinct points that are genuinely easier to scan as a list. Order points by importance, but do not target a fixed number. Whether in prose or bullets, include specific evidence and explain how it supports the claim; do not repeat the opening.
 
-Break down the core argument or mechanism (3-5 points ordered by significance):
-- Include specific numbers, data, examples, or evidence mentioned
-- Do not repeat the Opening — add new information only
-- Formatting freedom: use bullets, tables for comparisons, short 2-sentence paragraphs, block quotes for principles, or bold for newly defined terms
-- Don't just list facts. Explain the mechanism or logic behind concepts.
+**Closing thought (no header)**
+End with one useful implication, action, or insight when the source supports one. Do not add a generic conclusion heading or repeat the opening.
 
-## Context *(omit if self-explanatory)*
-1-2 sentences providing background, explaining why this matters now, or clarifying who it affects.
-
-## Takeaway
-One actionable or memorable conclusion. Answer ONE based on content type:
-- **Analysis or opinion:** What's the key insight or contrarian take?
-- **Education / explainer:** What should the reader now be able to do or understand?
-- **Reviews / tools:** Should you use/read/try this, and why?
-
-**Still Confused?** *(skip if beginner-friendly)*
-What prerequisite knowledge would help? What should someone read or watch first?
+**Prerequisite (optional, no header)**
+If the piece assumes knowledge a beginner may lack, name that prerequisite briefly. Skip this for beginner-friendly material.
 
 ---
 
 ### Strict Heading & Quality Rules:
-- Dynamic headers MUST be conversational, max 3 words, and NEVER use `The {xyz}`.
+- Body headings are optional. Use one only when it makes the summary easier to follow; keep it specific and short (usually 1–3 words). Never start a body heading with “The” or use “Takeaway(s)” / “Conclusion” as a stock label.
 - Remove repetition across sections.
 - Prioritize concrete facts, numbers, and logic over vague generalizations.
 - Tone: Patient and direct teacher. Build understanding, don't just dump facts.

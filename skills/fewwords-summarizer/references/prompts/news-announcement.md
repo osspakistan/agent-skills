@@ -19,7 +19,7 @@ TITLE: [Clear, honest headline — rewrite the original to describe what it actu
 **Opening (no header)**
 What happened? 2 sentences max. Facts only. No framing, no throat-clearing setup.
 
-**[*keep this section head dynamic. Keep it conversational and max 3 words. Use casual language. Examples: "What Changed", "Who Affected", "So What". Unlike standard headings, do NOT use the `The {xyz}` pattern*]**
+**[*Use a short, specific heading for this section (up to 3 words). Do not begin it with “The” or use a generic template label; omit it if no heading helps.*]**
 
 2-4 bullet points with key impact:
 - Who does this affect and how?
@@ -29,12 +29,12 @@ What happened? 2 sentences max. Facts only. No framing, no throat-clearing setup
 **What's Next** *(skip if not mentioned)*
 Timeline, release dates, next steps, or pending decisions.
 
-**Final Take:** [One sharp sentence: Is this useful? Overblown? Worth acting on?]
+End with one concise sentence on whether this is useful, overblown, or worth acting on. Do not add a generic conclusion label.
 
 ---
 
 ### Strict Heading & Quality Rules:
-- Dynamic headers MUST be conversational, max 3 words, and NEVER use `The {xyz}`.
+- Body headings should be short (usually 1–3 words), specific to the section, and optional when they add no value. Do not begin a body heading with “The” or label the conclusion “Takeaway(s)” or “Conclusion”; usually leave the closing thought unheaded.
 - **Hard limit: 200 words maximum.**
-- Tone: Aggressive and declarative. "X is happening" not "X appears to be happening." Direct, not hedged.
+- Tone: Direct and specific. Keep uncertainty and attribution when the source is uncertain; do not make a claim sound more certain than the evidence allows.
 - Speak the information as your own. Never mention "the author" or "the article."
