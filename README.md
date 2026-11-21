@@ -169,7 +169,7 @@ agent-skills/
 
 This repository uses **Semantic Versioning** (`MAJOR.MINOR.PATCH`).
 
-The current release is **`v1.2.1`**. Version progression follows `1.x.x`:
+The current release is **`v1.2.2`**. Version progression follows `1.x.x`:
 
 | Segment | Format | Meaning | When to Use | Examples |
 | :--- | :--- | :--- | :--- | :--- |
